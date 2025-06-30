@@ -1,580 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DGS Consulting - Business Audit Framework</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DGS Consulting - Business Audit Framework</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2e8b57 0%, #228b22 100%);
-            min-height: 100vh;
-            color: #333;
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #2e8b57 0%, #228b22 100%);
+      min-height: 100vh;
+      color: #333;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 40px;
+    }
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
 
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
 
-        .audit-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
+    .tabs {
+      display: flex;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
 
-        .tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
-        }
+    .tab {
+      flex: 1;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      background: transparent;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #6c757d;
+      transition: all 0.3s ease;
+      border: none;
+    }
 
-        .tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #6c757d;
-            transition: all 0.3s ease;
-        }
+    .tab.active {
+      background: white;
+      color: #228b22;
+      border-bottom: 3px solid #228b22;
+    }
 
-        .tab.active {
-            background: white;
-            color: #228b22;
-            border-bottom: 3px solid #228b22;
-        }
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 0 0 10px 10px;
+    }
 
-        .tab:hover {
-            background: #e9ecef;
-        }
+    .tab-content.active { display: block; }
 
-        .tab-content {
-            display: none;
-            padding: 30px;
-        }
+    .question-group {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #228b22;
+    }
 
-        .tab-content.active {
-            display: block;
-        }
+    .question {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
 
-        .assessment-section {
-            margin-bottom: 30px;
-        }
+    .rating-scale {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .section-title {
-            font-size: 1.4rem;
-            color: #228b22;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e9ecef;
-        }
+    .rating-scale input[type="radio"] { display: none; }
 
-        .question-group {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #228b22;
-        }
+    .rating-scale label {
+      padding: 8px 12px;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #fff;
+      transition: 0.3s;
+    }
 
-        .question {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #495057;
-        }
+    .rating-scale input[type="radio"]:checked + label {
+      background: #228b22;
+      color: white;
+      border-color: #228b22;
+    }
 
-        .rating-scale {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+    .btn {
+      background: linear-gradient(135deg, #2e8b57, #228b22);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+      display: block;
+      margin: 30px auto 0;
+    }
 
-        .rating-scale input[type="radio"] {
-            margin-right: 5px;
-        }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
+    }
 
-        .rating-scale label {
-            cursor: pointer;
-            padding: 8px 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
+    .score-display {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      margin: 20px 0;
+    }
 
-        .rating-scale input[type="radio"]:checked + label {
-            background: #228b22;
-            color: white;
-            border-color: #228b22;
-        }
+    .score-number {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-        .score-display {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
-        }
+    .recommendations {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
 
-        .score-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
+    .recommendations h3 { color: #856404; margin-bottom: 10px; }
+    .recommendations ul { padding-left: 1.2em; }
+    .recommendations li { margin-bottom: 8px; }
 
-        .recommendations {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .recommendations h3 {
-            color: #856404;
-            margin-bottom: 15px;
-        }
-
-        .recommendations ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .recommendations li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ffeaa7;
-            color: #856404;
-        }
-
-        .recommendations li:last-child {
-            border-bottom: none;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #2e8b57, #228b22);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
-        }
-
-        .framework-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .framework-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .framework-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .framework-card h3 {
-            color: #228b22;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #28a745, #20c997);
-            transition: width 0.5s ease;
-        }
-
-        @media (max-width: 768px) {
-            .tabs {
-                flex-direction: column;
-            }
-            
-            .rating-scale {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    @media (max-width: 768px) {
+      .tabs { flex-direction: column; }
+      .rating-scale { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎯 Business Audit Framework</h1>
-            <p>Comprehensive Assessment Tool by DGS Consulting</p>
-        </div>
-
-        <div class="audit-container">
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('overview')">Framework Overview</button>
-                <button class="tab" onclick="showTab('assessment')">Interactive Assessment</button>
-                <button class="tab" onclick="showTab('results')">Results & Recommendations</button>
-            </div>
-
-            <div id="overview" class="tab-content active">
-                <h2>DGS Consulting Audit Methodology</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 30px; color: #6c757d;">Our comprehensive framework evaluates five critical business areas to identify improvement opportunities and growth potential.</p>
-                
-                <div class="framework-overview">
-                    <div class="framework-card">
-                        <h3>📊 Operations Efficiency</h3>
-                        <p>Process optimization, workflow analysis, and resource utilization assessment.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="framework-card">
-                        <h3>💰 Financial Systems</h3>
-                        <p>Cash flow management, budgeting processes, and financial reporting accuracy.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="framework-card">
-                        <h3>👥 Team & Communication</h3>
-                        <p>Internal communication, team collaboration, and knowledge management.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 70%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="framework-card">
-                        <h3>📈 Growth Strategy</h3>
-                        <p>Market positioning, customer acquisition, and scalability planning.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="framework-card">
-                        <h3>⚙️ Technology & Systems</h3>
-                        <p>Digital tools effectiveness, automation opportunities, and tech stack optimization.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 65%"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="framework-card">
-                        <h3>📋 Documentation & SOPs</h3>
-                        <p>Process documentation, standard operating procedures, and knowledge capture.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="assessment" class="tab-content">
-                <div class="assessment-section">
-                    <div class="section-title">📊 Operations Efficiency</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How would you rate your current process documentation?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="ops1_1" name="ops1" value="1">
-                            <label for="ops1_1">Poor (1)</label>
-                            <input type="radio" id="ops1_2" name="ops1" value="2">
-                            <label for="ops1_2">Fair (2)</label>
-                            <input type="radio" id="ops1_3" name="ops1" value="3">
-                            <label for="ops1_3">Good (3)</label>
-                            <input type="radio" id="ops1_4" name="ops1" value="4">
-                            <label for="ops1_4">Very Good (4)</label>
-                            <input type="radio" id="ops1_5" name="ops1" value="5">
-                            <label for="ops1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How efficiently do you handle recurring tasks?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="ops2_1" name="ops2" value="1">
-                            <label for="ops2_1">Manual & Slow (1)</label>
-                            <input type="radio" id="ops2_2" name="ops2" value="2">
-                            <label for="ops2_2">Mostly Manual (2)</label>
-                            <input type="radio" id="ops2_3" name="ops2" value="3">
-                            <label for="ops2_3">Some Automation (3)</label>
-                            <input type="radio" id="ops2_4" name="ops2" value="4">
-                            <label for="ops2_4">Well Automated (4)</label>
-                            <input type="radio" id="ops2_5" name="ops2" value="5">
-                            <label for="ops2_5">Fully Optimized (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">💰 Financial Systems</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How accurate and timely is your financial reporting?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="fin1_1" name="fin1" value="1">
-                            <label for="fin1_1">Poor (1)</label>
-                            <input type="radio" id="fin1_2" name="fin1" value="2">
-                            <label for="fin1_2">Fair (2)</label>
-                            <input type="radio" id="fin1_3" name="fin1" value="3">
-                            <label for="fin1_3">Good (3)</label>
-                            <input type="radio" id="fin1_4" name="fin1" value="4">
-                            <label for="fin1_4">Very Good (4)</label>
-                            <input type="radio" id="fin1_5" name="fin1" value="5">
-                            <label for="fin1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How well do you track and manage cash flow?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="fin2_1" name="fin2" value="1">
-                            <label for="fin2_1">No Tracking (1)</label>
-                            <input type="radio" id="fin2_2" name="fin2" value="2">
-                            <label for="fin2_2">Basic Tracking (2)</label>
-                            <input type="radio" id="fin2_3" name="fin2" value="3">
-                            <label for="fin2_3">Regular Monitoring (3)</label>
-                            <input type="radio" id="fin2_4" name="fin2" value="4">
-                            <label for="fin2_4">Proactive Management (4)</label>
-                            <input type="radio" id="fin2_5" name="fin2" value="5">
-                            <label for="fin2_5">Predictive Analysis (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">👥 Team & Communication</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How effective is internal communication in your organization?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="team1_1" name="team1" value="1">
-                            <label for="team1_1">Poor (1)</label>
-                            <input type="radio" id="team1_2" name="team1" value="2">
-                            <label for="team1_2">Fair (2)</label>
-                            <input type="radio" id="team1_3" name="team1" value="3">
-                            <label for="team1_3">Good (3)</label>
-                            <input type="radio" id="team1_4" name="team1" value="4">
-                            <label for="team1_4">Very Good (4)</label>
-                            <input type="radio" id="team1_5" name="team1" value="5">
-                            <label for="team1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="calculateScore()">Calculate Audit Score</button>
-            </div>
-
-            <div id="results" class="tab-content">
-                <div id="scoreDisplay" class="score-display" style="display: none;">
-                    <div class="score-number" id="totalScore">--</div>
-                    <div>Overall Business Health Score</div>
-                    <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;" id="scoreCategory">Complete the assessment to see your results</div>
-                </div>
-
-                <div id="recommendationsSection" class="recommendations" style="display: none;">
-                    <h3>🎯 Recommended Actions</h3>
-                    <ul id="recommendationsList">
-                        <!-- Recommendations will be populated here -->
-                    </ul>
-                </div>
-
-                <div style="margin-top: 30px; padding: 25px; background: #e3f2fd; border-radius: 15px;">
-                    <h3 style="color: #1976d2; margin-bottom: 15px;">📞 Next Steps with DGS Consulting</h3>
-                    <p style="margin-bottom: 15px;">Based on your assessment results, here's how we can help:</p>
-                    <div style="display: grid; gap: 15px;">
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #1976d2;">
-                            <strong>👟 Starter Plan ($1,000)</strong> - Perfect for addressing 1-2 critical areas identified in your assessment
-                        </div>
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #2e7d32;">
-                            <strong>🌱 Growth Plan ($2,600)</strong> - Comprehensive solution for businesses scoring 40-70
-                        </div>
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #7b1fa2;">
-                            <strong>📈 Scale Plan ($5,500)</strong> - Full SCALE Framework implementation for businesses ready to optimize everything
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <h1>🎯 Business Audit Framework</h1>
+      <p>Self-Assessment Tool by DGS Consulting</p>
     </div>
 
-    <script>
-        function showTab(tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('assessment')">Assessment</button>
+      <button class="tab" onclick="showTab('results')">Results</button>
+    </div>
+
+    <div id="assessment" class="tab-content active">
+      <div class="question-group">
+        <div class="question">How would you rate your current process documentation?</div>
+        <div class="rating-scale">
+          <input type="radio" id="q1_1" name="q1" value="1"><label for="q1_1">Poor (1)</label>
+          <input type="radio" id="q1_2" name="q1" value="2"><label for="q1_2">Fair (2)</label>
+          <input type="radio" id="q1_3" name="q1" value="3"><label for="q1_3">Good (3)</label>
+          <input type="radio" id="q1_4" name="q1" value="4"><label for="q1_4">Very Good (4)</label>
+          <input type="radio" id="q1_5" name="q1" value="5"><label for="q1_5">Excellent (5)</label>
+        </div>
+      </div>
+      <button class="btn" onclick="calculateScore()">Calculate Audit Score</button>
+    </div>
+
+    <div id="results" class="tab-content">
+      <div id="scoreDisplay" class="score-display" style="display: none;">
+        <div class="score-number" id="totalScore">--</div>
+        <div>Overall Business Health Score</div>
+        <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;" id="scoreCategory">Complete the assessment to see your results</div>
+
+        <div id="categoryBreakdown" style="margin-top: 20px; text-align: left;">
+          <h4 style="margin-bottom: 10px;">Category Breakdown</h4>
+          <div id="categoryBars"></div>
+        </div>
+      </div>
+
+      <div id="recommendationsSection" class="recommendations" style="display: none;">
+        <h3>🎯 Recommended Actions</h3>
+        <ul id="recommendationsList"></ul>
+      </div>
+
+      <div style="margin-top: 20px; text-align: center;">
+        <p style="font-size: 1rem; color: #333;">
+          📬 Or contact me for a complimentary 30-minute session.<br />
+          <strong>Email:</strong> <a href="mailto:dgsconsult@consultant.com">dgsconsult@consultant.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function calculateScore() {
+      const categories = {
+        Operations: ['q1']
+      };
+
+      let totalScore = 0;
+      let answeredQuestions = 0;
+      let categoryScores = {};
+
+      for (const [category, questions] of Object.entries(categories)) {
+        let catScore = 0;
+        let catAnswered = 0;
+
+        questions.forEach(q => {
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (selected) {
+            catScore += parseInt(selected.value);
+            totalScore += parseInt(selected.value);
+            catAnswered++;
+            answeredQuestions++;
+          }
+        });
+
+        if (catAnswered > 0) {
+          const max = catAnswered * 5;
+          categoryScores[category] = Math.round((catScore / max) * 100);
         }
+      }
 
-        function calculateScore() {
-            const questions = ['ops1', 'ops2', 'fin1', 'fin2', 'team1'];
-            let totalScore = 0;
-            let answeredQuestions = 0;
+      if (answeredQuestions === 0) {
+        alert('Please answer at least one question before calculating your score.');
+        return;
+      }
 
-            questions.forEach(question => {
-                const selected = document.querySelector(`input[name="${question}"]:checked`);
-                if (selected) {
-                    totalScore += parseInt(selected.value);
-                    answeredQuestions++;
-                }
-            });
+      const percent = Math.round((totalScore / (answeredQuestions * 5)) * 100);
+      document.getElementById('totalScore').textContent = percent + '%';
+      document.getElementById('scoreDisplay').style.display = 'block';
 
-            if (answeredQuestions === 0) {
-                alert('Please answer at least one question before calculating your score.');
-                return;
-            }
+      let categoryLabel = '';
+      let recs = [];
 
-            // Calculate percentage score
-            const maxPossible = answeredQuestions * 5;
-            const percentageScore = Math.round((totalScore / maxPossible) * 100);
+      if (percent >= 80) {
+        categoryLabel = 'Excellent - Your business is well-optimized!';
+        recs = ['Explore advanced automation and scaling strategies.', 'Leverage data for predictive decision-making.'];
+      } else if (percent >= 60) {
+        categoryLabel = 'Good - Some areas need attention';
+        recs = ['Improve documentation consistency.', 'Automate recurring tasks where possible.'];
+      } else if (percent >= 40) {
+        categoryLabel = 'Needs Improvement - Multiple opportunities';
+        recs = ['Document critical processes.', 'Create SOPs for consistency.', 'Consider external help.'];
+      } else {
+        categoryLabel = 'Critical - Immediate action required';
+        recs = ['Start documenting basic processes.', 'Set up a simple task management system.', 'Reach out for help.'];
+      }
 
-            // Show results
-            document.getElementById('totalScore').textContent = percentageScore + '%';
-            document.getElementById('scoreDisplay').style.display = 'block';
-            
-            // Determine category and recommendations
-            let category, recommendations;
-            
-            if (percentageScore >= 80) {
-                category = 'Excellent - Your business is well-optimized!';
-                recommendations = [
-                    'Focus on advanced automation and AI integration',
-                    'Consider expansion and scaling strategies',
-                    'Implement predictive analytics for decision making',
-                    'Develop leadership succession planning'
-                ];
-            } else if (percentageScore >= 60) {
-                category = 'Good - Some areas need attention';
-                recommendations = [
-                    'Implement process documentation and SOPs',
-                    'Automate recurring tasks and workflows',
-                    'Improve financial reporting and tracking systems',
-                    'Enhance team communication tools and processes'
-                ];
-            } else if (percentageScore >= 40) {
-                category = 'Needs Improvement - Multiple optimization opportunities';
-                recommendations = [
-                    'Conduct comprehensive operational audit',
-                    'Establish basic process documentation',
-                    'Implement essential financial tracking systems',
-                    'Create standardized communication protocols',
-                    'Prioritize quick wins for immediate impact'
-                ];
-            } else {
-                category = 'Critical - Immediate action required';
-                recommendations = [
-                    'Emergency operational assessment needed',
-                    'Implement basic business systems immediately',
-                    'Establish fundamental financial controls',
-                    'Create essential process documentation',
-                    'Consider intensive consulting support'
-                ];
-            }
+      document.getElementById('scoreCategory').textContent = categoryLabel;
 
-            document.getElementById('scoreCategory').textContent = category;
-            
-            // Populate recommendations
-            const recommendationsList = document.getElementById('recommendationsList');
-            recommendationsList.innerHTML = '';
-            recommendations.forEach(rec => {
-                const li = document.createElement('li');
-                li.textContent = '• ' + rec;
-                recommendationsList.appendChild(li);
-            });
-            
-            document.getElementById('recommendationsSection').style.display = 'block';
-            
-            // Switch to results tab
-            showTabProgrammatically('results');
-        }
+      const list = document.getElementById('recommendationsList');
+      list.innerHTML = '';
+      recs.forEach(rec => {
+        const li = document.createElement('li');
+        li.textContent = rec;
+        list.appendChild(li);
+      });
 
-        function showTabProgrammatically(tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to corresponding tab button
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach((tab, index) => {
-                if ((tabName === 'overview' && index === 0) ||
-                    (tabName === 'assessment' && index === 1) ||
-                    (tabName === 'results' && index === 2)) {
-                    tab.classList.add('active');
-                }
-            });
-        }
-    </script>
+      const categoryBars = document.getElementById('categoryBars');
+      categoryBars.innerHTML = '';
+      for (const [cat, score] of Object.entries(categoryScores)) {
+        const barWrapper = document.createElement('div');
+        barWrapper.style.marginBottom = '10px';
+
+        const label = document.createElement('div');
+        label.textContent = `${cat}: ${score}%`;
+        label.style.fontWeight = '600';
+        barWrapper.appendChild(label);
+
+        const bar = document.createElement('div');
+        bar.style.height = '10px';
+        bar.style.background = '#e0e0e0';
+        bar.style.borderRadius = '5px';
+        bar.style.marginTop = '5px';
+
+        const fill = document.createElement('div');
+        fill.style.height = '100%';
+        fill.style.width = `${score}%`;
+        fill.style.background = 'linear-gradient(90deg, #28a745, #20c997)';
+        fill.style.borderRadius = '5px';
+
+        bar.appendChild(fill);
+        barWrapper.appendChild(bar);
+        categoryBars.appendChild(barWrapper);
+      }
+
+      showTab('results');
+    }
+  </script>
 </body>
 </html>
