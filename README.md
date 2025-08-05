@@ -15,7 +15,7 @@ This simple assessment helps you:
 - ✅ Get a clear action plan for what to work on next
 - ✅ Feel confident about your business decisions
 
-**[👉 Start Your Business Health Check](./index.html)**
+**[👉 Start Your Business Health Check](https://dgsconsulting.github.io/Business-Audit-Framework-/)**
 
 ---
 
@@ -66,7 +66,7 @@ Know exactly what to work on first for the biggest results
 
 This assessment is completely private - your answers stay on your device. Use it to get clarity on where you stand and what to improve next.
 
-**[🚀 Take Your Business Health Check Now](./index.html)**
+**[🚀 Take Your Business Health Check Now](https://dgsconsulting.github.io/Business-Audit-Framework-/)**
 
 ---
 
@@ -83,6 +83,6 @@ Most business owners are too busy working *in* their business to work *on* it. T
 
 **Ready to get started?**
 
-**[✨ Begin Your Assessment](./index.html)**
+**[✨ Begin Your Assessment](https://dgsconsulting.github.io/Business-Audit-Framework-/)**
 
 *Takes 10 minutes. Completely free. Instant results.*
