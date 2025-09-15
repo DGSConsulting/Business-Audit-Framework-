@@ -398,14 +398,18 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
+        /* Form styling enhancements */
+        form input:focus,
+        form textarea:focus {
+            outline: none;
+            border-color: #228b22 !important;
+            box-shadow: 0 0 0 3px rgba(34, 139, 34, 0.1);
+            transform: translateY(-1px);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
         }
     </style>
 </head>
@@ -640,7 +644,37 @@
             <h2>Ready to Transform Your Business?</h2>
             <p>Get professional insights and actionable recommendations from DGS Consulting's expert team based on your assessment results.</p>
             <button class="btn" onclick="generateReport()">📊 Generate Detailed Report</button>
-            <button class="btn btn-secondary" onclick="scheduleConsultation()">📞 Schedule Consultation</button>
+            
+            <!-- Contact Form -->
+            <div style="max-width: 600px; margin: 30px auto; text-align: left;">
+                <h3 style="color: #228b22; text-align: center; margin-bottom: 20px;">📞 Schedule Your Consultation</h3>
+                <form action="https://formspree.io/f/mldwklqe" method="POST" style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); border-left: 4px solid #228b22;">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #228b22;">Your Email:</label>
+                        <input type="email" name="email" required style="width: 100%; padding: 12px 15px; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #228b22;">Your Business Assessment Score:</label>
+                        <input type="text" name="assessment_score" id="formScore" readonly style="width: 100%; padding: 12px 15px; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 16px; background: #f8f9fa;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #228b22;">Your Message:</label>
+                        <textarea name="message" rows="4" placeholder="Tell us about your business challenges and what areas you'd like to focus on during the consultation..." style="width: 100%; padding: 12px 15px; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 16px; resize: vertical; min-height: 100px; transition: all 0.3s ease;"></textarea>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #228b22;">Company Name:</label>
+                        <input type="text" name="company" style="width: 100%; padding: 12px 15px; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #228b22;">Phone Number (Optional):</label>
+                        <input type="tel" name="phone" style="width: 100%; padding: 12px 15px; border: 2px solid #e0e6ed; border-radius: 10px; font-size: 16px; transition: all 0.3s ease;">
+                    </div>
+                    <input type="hidden" name="_subject" value="Business Audit Consultation Request">
+                    <input type="hidden" name="_next" value="https://dgsconsulting.github.io/Business-Audit-Framework-/">
+                    <button type="submit" class="btn" style="width: 100%; margin: 0; background: linear-gradient(135deg, #2e8b57, #228b22); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);">Send Consultation Request</button>
+                </form>
+            </div>
+            
             <div style="margin-top: 30px;">
                 <a href="https://dgsconsulting.github.io/SOP-Designer/" class="btn btn-secondary">📝 SOP Designer</a>
                 <a href="https://dgsconsulting.github.io/ROI-Calculator-Suite/" class="btn btn-secondary">💰 ROI Calculator</a>
@@ -692,6 +726,12 @@
             document.getElementById('growAvg').textContent = grow.toFixed(1);
             document.getElementById('techAvg').textContent = tech.toFixed(1);
             document.getElementById('overallScore').textContent = Math.round(overall * 10);
+            
+            // Update the form score field
+            const formScoreField = document.getElementById('formScore');
+            if (formScoreField) {
+                formScoreField.value = `Overall: ${Math.round(overall * 10)}/100 | Operations: ${ops.toFixed(1)} | Financial: ${fin.toFixed(1)} | Internal: ${int.toFixed(1)} | Growth: ${grow.toFixed(1)} | Technology: ${tech.toFixed(1)}`;
+            }
             
             updateScoreCircle(overall);
             updateInterpretation(overall);
@@ -793,179 +833,30 @@
 
         function generateReport() {
             updateScores();
-            const ops = (parseInt(document.getElementById('ops1').value) + parseInt(document.getElementById('ops2').value)) / 2;
-            const fin = (parseInt(document.getElementById('fin1').value) + parseInt(document.getElementById('fin2').value)) / 2;
-            const int = (parseInt(document.getElementById('int1').value) + parseInt(document.getElementById('int2').value)) / 2;
-            const grow = (parseInt(document.getElementById('grow1').value) + parseInt(document.getElementById('grow2').value)) / 2;
-            const tech = (parseInt(document.getElementById('tech1').value) + parseInt(document.getElementById('tech2').value)) / 2;
-            const overall = (ops + fin + int + grow + tech) / 5;
-
-            const reportHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Audit Report - DGS Consulting</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; color: #333; }
-        .header { background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px; }
-        .header h1 { font-size: 2rem; margin-bottom: 10px; }
-        .score-section { background: #f8f9fa; padding: 25px; border-radius: 10px; margin: 20px 0; text-align: center; border-left: 4px solid #228b22; }
-        .overall-score { font-size: 3rem; font-weight: bold; color: #228b22; margin: 10px 0; }
-        .category-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
-        .category { background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #228b22; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .category h4 { color: #228b22; margin: 0 0 5px 0; }
-        .category .score { font-size: 1.5rem; font-weight: bold; color: #2c3e50; }
-        .recommendations { margin: 30px 0; }
-        .rec-item { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 15px 0; border-left: 4px solid #228b22; }
-        .rec-title { font-weight: bold; color: #228b22; margin-bottom: 8px; }
-        .priority-high { border-left-color: #e74c3c; }
-        .priority-medium { border-left-color: #f39c12; }
-        .priority-low { border-left-color: #3498db; }
-        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>🎯 Business Audit Report</h1>
-        <p>Comprehensive Assessment by DGS Consulting</p>
-        <p>Generated: ${new Date().toLocaleDateString()}</p>
-    </div>
-    
-    <div class="score-section">
-        <h2>Overall Business Health Score</h2>
-        <div class="overall-score">${Math.round(overall * 10)}/100</div>
-        <p>${getScoreInterpretation(overall)}</p>
-    </div>
-    
-    <h2>Category Breakdown</h2>
-    <div class="category-scores">
-        <div class="category">
-            <h4>⚡ Operations Excellence</h4>
-            <div class="score">${ops.toFixed(1)}/10</div>
-        </div>
-        <div class="category">
-            <h4>💰 Financial Health</h4>
-            <div class="score">${fin.toFixed(1)}/10</div>
-        </div>
-        <div class="category">
-            <h4>🤝 Internal Systems</h4>
-            <div class="score">${int.toFixed(1)}/10</div>
-        </div>
-        <div class="category">
-            <h4>🚀 Growth Strategy</h4>
-            <div class="score">${grow.toFixed(1)}/10</div>
-        </div>
-        <div class="category">
-            <h4>🛠️ Technology Stack</h4>
-            <div class="score">${tech.toFixed(1)}/10</div>
-        </div>
-    </div>
-    
-    <h2>Recommendations</h2>
-    <div class="recommendations">
-        ${generateReportRecommendations(ops, fin, int, grow, tech)}
-    </div>
-    
-    <div class="footer">
-        <p><strong>DGS Consulting</strong> - Streamline Today, Scale Tomorrow</p>
-        <p>Contact: DGSConsult@consultant.com | LinkedIn: dgs-consulting</p>
-    </div>
-</body>
-</html>`;
-
-            downloadFile(reportHTML, 'Business_Audit_Report.html', 'text/html');
-        }
-
-        function getScoreInterpretation(score) {
-            if (score >= 8) return "Excellent! Your business is performing at a high level across all areas.";
-            if (score >= 6) return "Good performance with room for strategic improvements.";
-            if (score >= 4) return "Moderate performance. Several areas need attention for growth.";
-            return "Significant improvements needed across multiple business areas.";
-        }
-
-        function generateReportRecommendations(ops, fin, int, grow, tech) {
-            let html = '';
-            
-            if (ops < 6) {
-                html += `<div class="rec-item priority-high">
-                    <div class="rec-title">Operations Optimization - HIGH PRIORITY</div>
-                    <p>Implement process mapping and workflow automation to improve operational efficiency. Consider lean methodologies and continuous improvement practices.</p>
-                </div>`;
-            }
-            
-            if (fin < 6) {
-                html += `<div class="rec-item priority-high">
-                    <div class="rec-title">Financial Management Enhancement - HIGH PRIORITY</div>
-                    <p>Establish robust cash flow forecasting and implement real-time financial dashboards. Consider automated bookkeeping solutions.</p>
-                </div>`;
-            }
-            
-            if (int < 6) {
-                html += `<div class="rec-item priority-medium">
-                    <div class="rec-title">Internal Communication Systems - MEDIUM PRIORITY</div>
-                    <p>Deploy collaboration tools and establish clear communication protocols. Create knowledge sharing platforms and regular team meetings.</p>
-                </div>`;
-            }
-            
-            if (grow < 6) {
-                html += `<div class="rec-item priority-medium">
-                    <div class="rec-title">Growth Strategy Development - MEDIUM PRIORITY</div>
-                    <p>Conduct comprehensive market analysis and develop a scaling plan. Focus on defining your competitive advantage and value proposition.</p>
-                </div>`;
-            }
-            
-            if (tech < 6) {
-                html += `<div class="rec-item priority-low">
-                    <div class="rec-title">Technology Stack Upgrade - LOW PRIORITY</div>
-                    <p>Audit current tools and implement automation solutions for repetitive tasks. Invest in integrated business management systems.</p>
-                </div>`;
-            }
-            
-            if (html === '') {
-                html = `<div class="rec-item priority-low">
-                    <div class="rec-title">Continuous Improvement & Innovation</div>
-                    <p>Your business is performing well! Focus on maintaining excellence and exploring advanced optimization opportunities like AI integration and market expansion.</p>
-                </div>`;
-            }
-            
-            return html;
+            alert('📊 Generating your comprehensive business audit report...\n\nThis would typically:\n• Download a detailed PDF report\n• Include specific action items\n• Provide industry benchmarks\n• Offer implementation timelines');
         }
 
         function scheduleConsultation() {
-            alert('📞 This would typically redirect to a consultation booking system. For now, please contact us at DGSConsult@consultant.com to schedule your consultation.');
-        }
-
-        function downloadFile(content, filename, contentType) {
-            const blob = new Blob([content], { type: contentType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
+            alert('📞 Redirecting to consultation booking...\n\nThis would typically:\n• Open DGS Consulting\'s calendar\n• Allow you to select available times\n• Send confirmation emails\n• Prepare customized consultation agenda');
         }
 
         // Initialize scores on page load
         updateScores();
 
-        // Add smooth scrolling and animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const questionGroups = document.querySelectorAll('.question-group');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('fade-in');
-                    }
+        // Add smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
             });
+        });
 
-            questionGroups.forEach(group => {
-                observer.observe(group);
+        // Add animation delays to cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.question-group');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
             });
         });
-    </script>
-</body>
-</html>
