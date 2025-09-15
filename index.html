@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-  <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
-    <title>DGS Consulting - Business Audit Framework</title>
+    <link rel="icon" type="image/png" href="assets/logo-icon-t.png" />
+    <title>🎯 Business Audit Framework - DGS Consulting</title>
     <style>
         * {
             margin: 0;
@@ -18,18 +18,23 @@
             background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
             min-height: 100vh;
             color: #333;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .header {
             text-align: center;
             color: white;
-            margin-bottom: 40px;
+            padding: 40px 30px;
+            background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
         }
 
         .header h1 {
@@ -43,158 +48,289 @@
             opacity: 0.9;
         }
 
-        .audit-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin-bottom: 30px;
-        }
-
-        .tabs {
-            display: flex;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 30px;
             background: #f8f9fa;
-            border-bottom: 1px solid #e9ecef;
         }
 
-        .tab {
-            flex: 1;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #6c757d;
-            transition: all 0.3s ease;
-        }
-
-        .tab.active {
+        .feature-card {
             background: white;
-            color: #228b22;
-            border-bottom: 3px solid #228b22;
-        }
-
-        .tab:hover {
-            background: #e9ecef;
-        }
-
-        .tab-content {
-            display: none;
+            border-radius: 15px;
             padding: 30px;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .assessment-section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            color: #228b22;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e9ecef;
-        }
-
-        .question-group {
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             border-left: 4px solid #228b22;
         }
 
-        .question {
-            font-weight: 600;
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #228b22;
             margin-bottom: 15px;
-            color: #495057;
+            font-size: 1.3rem;
         }
 
-        .rating-scale {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 10px;
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
         }
 
-        .rating-scale input[type="radio"] {
-            margin-right: 5px;
+        .audit-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 80vh;
         }
 
-        .rating-scale label {
-            cursor: pointer;
-            padding: 8px 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        .audit-form {
+            padding: 40px;
+            border-right: 1px solid #eee;
+            background: white;
+        }
+
+        .audit-results {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #228b22;
+            font-weight: 600;
+            border-bottom: 2px solid #228b22;
+            padding-bottom: 8px;
+        }
+
+        .question-group {
+            background: white;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #228b22;
             transition: all 0.3s ease;
         }
 
-        .rating-scale input[type="radio"]:checked + label {
-            background: #228b22;
-            color: white;
-            border-color: #228b22;
+        .question-group:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .question-group label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .slider-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #e0e6ed;
+            outline: none;
+            -webkit-appearance: none;
+            transition: all 0.3s ease;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2e8b57, #228b22);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2e8b57, #228b22);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
         }
 
         .score-display {
-            background: linear-gradient(135deg, #28a745, #20c997);
+            background: linear-gradient(135deg, #2e8b57, #228b22);
             color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.3);
         }
 
-        .score-number {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .results-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .overall-score {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#228b22 0deg, #e0e6ed 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(34, 139, 34, 0.2);
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .score-text {
+            position: relative;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #228b22;
+        }
+
+        .category-scores {
+            margin-bottom: 30px;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-item:last-child {
+            border-bottom: none;
+        }
+
+        .category-name {
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .recommendations {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
+            margin-top: 30px;
+        }
+
+        .rec-card {
+            background: white;
+            border: 2px solid #e0e6ed;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border-left: 4px solid #228b22;
         }
 
-        .recommendations h3 {
-            color: #856404;
-            margin-bottom: 15px;
+        .rec-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
-        .recommendations ul {
-            list-style-type: none;
-            padding: 0;
+        .rec-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #228b22;
+            font-size: 1.1rem;
         }
 
-        .recommendations li {
-            padding: 8px 0;
-            border-bottom: 1px solid #ffeaa7;
-            color: #856404;
+        .rec-description {
+            color: #666;
+            line-height: 1.6;
         }
 
-        .recommendations li:last-child {
-            border-bottom: none;
+        .priority-high { border-left-color: #e74c3c; }
+        .priority-medium { border-left-color: #f39c12; }
+        .priority-low { border-left-color: #3498db; }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
+
+        .priority-high .priority-badge { background: #e74c3c; color: white; }
+        .priority-medium .priority-badge { background: #f39c12; color: white; }
+        .priority-low .priority-badge { background: #3498db; color: white; }
 
         .btn {
             background: linear-gradient(135deg, #2e8b57, #228b22);
             color: white;
-            border: none;
             padding: 15px 30px;
+            border: none;
             border-radius: 25px;
+            cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
         }
 
         .btn:hover {
@@ -202,59 +338,74 @@
             box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
         }
 
-        .framework-overview {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            box-shadow: 0 4px 15px rgba(149, 165, 166, 0.3);
         }
 
-        .framework-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+        .cta-section {
+            text-align: center;
+            padding: 40px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
         }
 
-        .framework-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .framework-card h3 {
+        .cta-section h2 {
             color: #228b22;
             margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 2rem;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #28a745, #20c997);
-            transition: width 0.5s ease;
+        .cta-section p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @media (max-width: 768px) {
-            .tabs {
-                flex-direction: column;
+            .audit-container {
+                grid-template-columns: 1fr;
             }
             
-            .rating-scale {
-                flex-direction: column;
-                align-items: flex-start;
+            .audit-form {
+                border-right: none;
+                border-bottom: 1px solid #eee;
             }
             
             .header h1 {
                 font-size: 2rem;
             }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -265,514 +416,244 @@
             <p>Comprehensive Assessment Tool by DGS Consulting</p>
         </div>
 
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Operations Excellence</h3>
+                <p>Process optimization, workflow analysis, and resource utilization assessment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Financial Health</h3>
+                <p>Cash flow management, budgeting processes, and financial reporting accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>Internal Systems</h3>
+                <p>Internal communication, team collaboration, and knowledge management.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Growth Strategy</h3>
+                <p>Market positioning, customer acquisition, and scalability planning.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛠️</div>
+                <h3>Technology Stack</h3>
+                <p>Digital tools effectiveness, automation opportunities, and tech stack optimization.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Documentation</h3>
+                <p>Process documentation, standard operating procedures, and knowledge capture.</p>
+            </div>
+        </div>
+
         <div class="audit-container">
-            <div class="tabs">
-                <button class="tab active" onclick="showTab('overview')">Framework Overview</button>
-                <button class="tab" onclick="showTab('assessment')">Interactive Assessment</button>
-                <button class="tab" onclick="showTab('results')">Results & Recommendations</button>
-            </div>
-
-            <div id="overview" class="tab-content active">
-                <h2>DGS Consulting Audit Methodology</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 30px; color: #6c757d;">Our comprehensive framework evaluates five critical business areas to identify improvement opportunities and growth potential.</p>
+            <div class="audit-form">
+                <h2 style="color: #228b22; margin-bottom: 30px; font-size: 1.8rem;">Complete Your Business Assessment</h2>
+                <p style="margin-bottom: 30px; color: #666; line-height: 1.6;">Rate each area from 1-10 based on your current business performance. Move the sliders to reflect your honest assessment.</p>
                 
-                <div class="framework-overview">
-                    <div class="framework-card">
-                        <h3>📊 Operations Efficiency</h3>
-                        <p>Process optimization, workflow analysis, and resource utilization assessment.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
+                <div class="section">
+                    <h3>⚡ Operations Excellence</h3>
+                    <div class="question-group fade-in">
+                        <label>How efficient are your current business processes?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="ops1">
+                            <div class="slider-labels">
+                                <span>Inefficient</span>
+                                <span class="score-display" id="ops1-score">5</span>
+                                <span>Highly Efficient</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="framework-card">
-                        <h3>💰 Financial Systems</h3>
-                        <p>Cash flow management, budgeting processes, and financial reporting accuracy.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 75%"></div>
+                    <div class="question-group fade-in">
+                        <label>How well do you track and optimize resource utilization?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="ops2">
+                            <div class="slider-labels">
+                                <span>Poor Tracking</span>
+                                <span class="score-display" id="ops2-score">5</span>
+                                <span>Excellent Tracking</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="framework-card">
-                        <h3>👥 Team & Communication</h3>
-                        <p>Internal communication, team collaboration, and knowledge management.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 70%"></div>
+                </div>
+
+                <div class="section">
+                    <h3>💰 Financial Health</h3>
+                    <div class="question-group fade-in">
+                        <label>How robust is your cash flow management?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="fin1">
+                            <div class="slider-labels">
+                                <span>Poor</span>
+                                <span class="score-display" id="fin1-score">5</span>
+                                <span>Excellent</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="framework-card">
-                        <h3>📈 Growth Strategy</h3>
-                        <p>Market positioning, customer acquisition, and scalability planning.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 60%"></div>
+                    <div class="question-group fade-in">
+                        <label>How accurate and timely is your financial reporting?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="fin2">
+                            <div class="slider-labels">
+                                <span>Delayed/Inaccurate</span>
+                                <span class="score-display" id="fin2-score">5</span>
+                                <span>Real-time/Accurate</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="framework-card">
-                        <h3>⚙️ Technology & Systems</h3>
-                        <p>Digital tools effectiveness, automation opportunities, and tech stack optimization.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 65%"></div>
+                </div>
+
+                <div class="section">
+                    <h3>🤝 Internal Systems</h3>
+                    <div class="question-group fade-in">
+                        <label>How effective is internal communication across your organization?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="int1">
+                            <div class="slider-labels">
+                                <span>Poor</span>
+                                <span class="score-display" id="int1-score">5</span>
+                                <span>Excellent</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="framework-card">
-                        <h3>📋 Documentation & SOPs</h3>
-                        <p>Process documentation, standard operating procedures, and knowledge capture.</p>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%"></div>
+                    <div class="question-group fade-in">
+                        <label>How well do you manage and share organizational knowledge?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="int2">
+                            <div class="slider-labels">
+                                <span>Siloed Knowledge</span>
+                                <span class="score-display" id="int2-score">5</span>
+                                <span>Shared Efficiently</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>🚀 Growth Strategy</h3>
+                    <div class="question-group fade-in">
+                        <label>How well-defined is your market positioning and competitive advantage?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="grow1">
+                            <div class="slider-labels">
+                                <span>Unclear</span>
+                                <span class="score-display" id="grow1-score">5</span>
+                                <span>Crystal Clear</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-group fade-in">
+                        <label>How scalable are your current business operations?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="grow2">
+                            <div class="slider-labels">
+                                <span>Not Scalable</span>
+                                <span class="score-display" id="grow2-score">5</span>
+                                <span>Highly Scalable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>🛠️ Technology Stack</h3>
+                    <div class="question-group fade-in">
+                        <label>How effectively do your digital tools support business operations?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="tech1">
+                            <div class="slider-labels">
+                                <span>Hindrance</span>
+                                <span class="score-display" id="tech1-score">5</span>
+                                <span>Major Asset</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question-group fade-in">
+                        <label>How well have you implemented automation in repetitive processes?</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="10" value="5" class="slider" id="tech2">
+                            <div class="slider-labels">
+                                <span>Manual Processes</span>
+                                <span class="score-display" id="tech2-score">5</span>
+                                <span>Highly Automated</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="assessment" class="tab-content">
-                <div class="assessment-section">
-                    <div class="section-title">📊 Operations Efficiency</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How would you rate your current process documentation?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="ops1_1" name="ops1" value="1">
-                            <label for="ops1_1">Poor (1)</label>
-                            <input type="radio" id="ops1_2" name="ops1" value="2">
-                            <label for="ops1_2">Fair (2)</label>
-                            <input type="radio" id="ops1_3" name="ops1" value="3">
-                            <label for="ops1_3">Good (3)</label>
-                            <input type="radio" id="ops1_4" name="ops1" value="4">
-                            <label for="ops1_4">Very Good (4)</label>
-                            <input type="radio" id="ops1_5" name="ops1" value="5">
-                            <label for="ops1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How efficiently do you handle recurring tasks?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="ops2_1" name="ops2" value="1">
-                            <label for="ops2_1">Manual & Slow (1)</label>
-                            <input type="radio" id="ops2_2" name="ops2" value="2">
-                            <label for="ops2_2">Mostly Manual (2)</label>
-                            <input type="radio" id="ops2_3" name="ops2" value="3">
-                            <label for="ops2_3">Some Automation (3)</label>
-                            <input type="radio" id="ops2_4" name="ops2" value="4">
-                            <label for="ops2_4">Well Automated (4)</label>
-                            <input type="radio" id="ops2_5" name="ops2" value="5">
-                            <label for="ops2_5">Fully Optimized (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">💰 Financial Systems</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How accurate and timely is your financial reporting?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="fin1_1" name="fin1" value="1">
-                            <label for="fin1_1">Poor (1)</label>
-                            <input type="radio" id="fin1_2" name="fin1" value="2">
-                            <label for="fin1_2">Fair (2)</label>
-                            <input type="radio" id="fin1_3" name="fin1" value="3">
-                            <label for="fin1_3">Good (3)</label>
-                            <input type="radio" id="fin1_4" name="fin1" value="4">
-                            <label for="fin1_4">Very Good (4)</label>
-                            <input type="radio" id="fin1_5" name="fin1" value="5">
-                            <label for="fin1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How well do you track and manage cash flow?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="fin2_1" name="fin2" value="1">
-                            <label for="fin2_1">No Tracking (1)</label>
-                            <input type="radio" id="fin2_2" name="fin2" value="2">
-                            <label for="fin2_2">Basic Tracking (2)</label>
-                            <input type="radio" id="fin2_3" name="fin2" value="3">
-                            <label for="fin2_3">Regular Monitoring (3)</label>
-                            <input type="radio" id="fin2_4" name="fin2" value="4">
-                            <label for="fin2_4">Proactive Management (4)</label>
-                            <input type="radio" id="fin2_5" name="fin2" value="5">
-                            <label for="fin2_5">Predictive Analysis (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">👥 Team & Communication</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How effective is internal communication in your organization?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="team1_1" name="team1" value="1">
-                            <label for="team1_1">Poor (1)</label>
-                            <input type="radio" id="team1_2" name="team1" value="2">
-                            <label for="team1_2">Fair (2)</label>
-                            <input type="radio" id="team1_3" name="team1" value="3">
-                            <label for="team1_3">Good (3)</label>
-                            <input type="radio" id="team1_4" name="team1" value="4">
-                            <label for="team1_4">Very Good (4)</label>
-                            <input type="radio" id="team1_5" name="team1" value="5">
-                            <label for="team1_5">Excellent (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How well do team members understand their roles and responsibilities?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="team2_1" name="team2" value="1">
-                            <label for="team2_1">Unclear Roles (1)</label>
-                            <input type="radio" id="team2_2" name="team2" value="2">
-                            <label for="team2_2">Some Confusion (2)</label>
-                            <input type="radio" id="team2_3" name="team2" value="3">
-                            <label for="team2_3">Generally Clear (3)</label>
-                            <input type="radio" id="team2_4" name="team2" value="4">
-                            <label for="team2_4">Well Defined (4)</label>
-                            <input type="radio" id="team2_5" name="team2" value="5">
-                            <label for="team2_5">Crystal Clear (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">📈 Growth Strategy</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How well-defined is your customer acquisition strategy?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="growth1_1" name="growth1" value="1">
-                            <label for="growth1_1">No Strategy (1)</label>
-                            <input type="radio" id="growth1_2" name="growth1" value="2">
-                            <label for="growth1_2">Basic Approach (2)</label>
-                            <input type="radio" id="growth1_3" name="growth1" value="3">
-                            <label for="growth1_3">Some Planning (3)</label>
-                            <input type="radio" id="growth1_4" name="growth1" value="4">
-                            <label for="growth1_4">Well Planned (4)</label>
-                            <input type="radio" id="growth1_5" name="growth1" value="5">
-                            <label for="growth1_5">Strategic & Data-Driven (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How effectively do you track and analyze customer data and feedback?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="growth2_1" name="growth2" value="1">
-                            <label for="growth2_1">No Tracking (1)</label>
-                            <input type="radio" id="growth2_2" name="growth2" value="2">
-                            <label for="growth2_2">Basic Records (2)</label>
-                            <input type="radio" id="growth2_3" name="growth2" value="3">
-                            <label for="growth2_3">Regular Tracking (3)</label>
-                            <input type="radio" id="growth2_4" name="growth2" value="4">
-                            <label for="growth2_4">Systematic Analysis (4)</label>
-                            <input type="radio" id="growth2_5" name="growth2" value="5">
-                            <label for="growth2_5">Advanced Analytics (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How prepared is your business for scaling operations?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="growth3_1" name="growth3" value="1">
-                            <label for="growth3_1">Not Scalable (1)</label>
-                            <input type="radio" id="growth3_2" name="growth3" value="2">
-                            <label for="growth3_2">Limited Capacity (2)</label>
-                            <input type="radio" id="growth3_3" name="growth3" value="3">
-                            <label for="growth3_3">Some Flexibility (3)</label>
-                            <input type="radio" id="growth3_4" name="growth3" value="4">
-                            <label for="growth3_4">Growth Ready (4)</label>
-                            <input type="radio" id="growth3_5" name="growth3" value="5">
-                            <label for="growth3_5">Highly Scalable (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">⚙️ Technology & Systems</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How well do your current technology tools support your business operations?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="tech1_1" name="tech1" value="1">
-                            <label for="tech1_1">Outdated/Hindering (1)</label>
-                            <input type="radio" id="tech1_2" name="tech1" value="2">
-                            <label for="tech1_2">Basic Tools (2)</label>
-                            <input type="radio" id="tech1_3" name="tech1" value="3">
-                            <label for="tech1_3">Adequate Support (3)</label>
-                            <input type="radio" id="tech1_4" name="tech1" value="4">
-                            <label for="tech1_4">Good Integration (4)</label>
-                            <input type="radio" id="tech1_5" name="tech1" value="5">
-                            <label for="tech1_5">Optimized Ecosystem (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How automated are your repetitive business processes?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="tech2_1" name="tech2" value="1">
-                            <label for="tech2_1">All Manual (1)</label>
-                            <input type="radio" id="tech2_2" name="tech2" value="2">
-                            <label for="tech2_2">Minimal Automation (2)</label>
-                            <input type="radio" id="tech2_3" name="tech2" value="3">
-                            <label for="tech2_3">Some Automation (3)</label>
-                            <input type="radio" id="tech2_4" name="tech2" value="4">
-                            <label for="tech2_4">Well Automated (4)</label>
-                            <input type="radio" id="tech2_5" name="tech2" value="5">
-                            <label for="tech2_5">Highly Automated (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How secure and backed up is your business data?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="tech3_1" name="tech3" value="1">
-                            <label for="tech3_1">No Backup Plan (1)</label>
-                            <input type="radio" id="tech3_2" name="tech3" value="2">
-                            <label for="tech3_2">Basic Backup (2)</label>
-                            <input type="radio" id="tech3_3" name="tech3" value="3">
-                            <label for="tech3_3">Regular Backups (3)</label>
-                            <input type="radio" id="tech3_4" name="tech3" value="4">
-                            <label for="tech3_4">Secure & Automated (4)</label>
-                            <input type="radio" id="tech3_5" name="tech3" value="5">
-                            <label for="tech3_5">Enterprise-Level Security (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="assessment-section">
-                    <div class="section-title">📋 Documentation & SOPs</div>
-                    
-                    <div class="question-group">
-                        <div class="question">How comprehensive are your Standard Operating Procedures (SOPs)?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="sop1_1" name="sop1" value="1">
-                            <label for="sop1_1">No SOPs (1)</label>
-                            <input type="radio" id="sop1_2" name="sop1" value="2">
-                            <label for="sop1_2">Few Basic SOPs (2)</label>
-                            <input type="radio" id="sop1_3" name="sop1" value="3">
-                            <label for="sop1_3">Key Processes Documented (3)</label>
-                            <input type="radio" id="sop1_4" name="sop1" value="4">
-                            <label for="sop1_4">Most Processes Documented (4)</label>
-                            <input type="radio" id="sop1_5" name="sop1" value="5">
-                            <label for="sop1_5">Comprehensive SOP Library (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How accessible and up-to-date is your process documentation?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="sop2_1" name="sop2" value="1">
-                            <label for="sop2_1">Outdated/Inaccessible (1)</label>
-                            <input type="radio" id="sop2_2" name="sop2" value="2">
-                            <label for="sop2_2">Hard to Find (2)</label>
-                            <input type="radio" id="sop2_3" name="sop2" value="3">
-                            <label for="sop2_3">Somewhat Current (3)</label>
-                            <input type="radio" id="sop2_4" name="sop2" value="4">
-                            <label for="sop2_4">Well Organized (4)</label>
-                            <input type="radio" id="sop2_5" name="sop2" value="5">
-                            <label for="sop2_5">Centralized & Current (5)</label>
-                        </div>
-                    </div>
-
-                    <div class="question-group">
-                        <div class="question">How effectively do you capture and transfer institutional knowledge?</div>
-                        <div class="rating-scale">
-                            <input type="radio" id="sop3_1" name="sop3" value="1">
-                            <label for="sop3_1">Knowledge Silos (1)</label>
-                            <input type="radio" id="sop3_2" name="sop3" value="2">
-                            <label for="sop3_2">Informal Sharing (2)</label>
-                            <input type="radio" id="sop3_3" name="sop3" value="3">
-                            <label for="sop3_3">Some Documentation (3)</label>
-                            <input type="radio" id="sop3_4" name="sop3" value="4">
-                            <label for="sop3_4">Systematic Capture (4)</label>
-                            <input type="radio" id="sop3_5" name="sop3" value="5">
-                            <label for="sop3_5">Knowledge Management System (5)</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="calculateScore()">Calculate Audit Score</button>
-            </div>
-
-            <div id="results" class="tab-content">
-                <div id="scoreDisplay" class="score-display" style="display: none;">
-                    <div class="score-number" id="totalScore">--</div>
-                    <div>Overall Business Health Score</div>
-                    <div style="font-size: 0.9rem; opacity: 0.9; margin-top: 10px;" id="scoreCategory">Complete the assessment to see your results</div>
-                </div>
-
-                <div id="recommendationsSection" class="recommendations" style="display: none;">
-                    <h3>🎯 Recommended Actions</h3>
-                    <ul id="recommendationsList">
-                        <!-- Recommendations will be populated here -->
-                    </ul>
-                </div>
-
+            <div class="audit-results">
+                <h2 style="color: #228b22; margin-bottom: 30px; font-size: 1.8rem;">Your Assessment Results</h2>
                 
-<div style="margin-top: 25px; padding: 20px; background: #d1ecf1; border-left: 5px solid #0c5460; border-radius: 10px; color: #0c5460;">
-  <strong>Need help?</strong> Contact me for a free 30-minute consultation:<br>
-  📧 <a href="mailto:dgsconsult@consultant.com">dgsconsult@consultant.com</a>
-</div>
-<div style="margin-top: 30px; padding: 25px; background: #e3f2fd; border-radius: 15px;">
-                    <h3 style="color: #1976d2; margin-bottom: 15px;">📞 Next Steps with DGS Consulting</h3>
-                    <p style="margin-bottom: 15px;">Based on your assessment results, here's how we can help:</p>
-                    <div style="display: grid; gap: 15px;">
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #1976d2;">
-                            <strong>👟 Starter Plan ($1,000)</strong> - Perfect for addressing 1-2 critical areas identified in your assessment
+                <div class="results-card">
+                    <div class="overall-score">
+                        <div class="score-circle pulse" id="overallCircle">
+                            <span class="score-text" id="overallScore">50</span>
                         </div>
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #2e7d32;">
-                            <strong>🌱 Growth Plan ($2,600)</strong> - Comprehensive solution for businesses scoring 40-70
+                        <h3 style="color: #228b22; margin-bottom: 10px;">Overall Business Health Score</h3>
+                        <p id="scoreInterpretation" style="color: #666; font-style: italic;">Move the sliders to see your personalized results</p>
+                    </div>
+                </div>
+
+                <div class="results-card">
+                    <h3 style="color: #228b22; margin-bottom: 20px;">Category Breakdown</h3>
+                    <div class="category-scores">
+                        <div class="category-item">
+                            <span class="category-name">⚡ Operations Excellence</span>
+                            <span class="score-display" id="opsAvg">5.0</span>
                         </div>
-                        <div style="padding: 15px; background: white; border-radius: 10px; border-left: 4px solid #7b1fa2;">
-                            <strong>📈 Scale Plan ($5,500)</strong> - Full SCALE Framework implementation for businesses ready to optimize everything
+                        <div class="category-item">
+                            <span class="category-name">💰 Financial Health</span>
+                            <span class="score-display" id="finAvg">5.0</span>
+                        </div>
+                        <div class="category-item">
+                            <span class="category-name">🤝 Internal Systems</span>
+                            <span class="score-display" id="intAvg">5.0</span>
+                        </div>
+                        <div class="category-item">
+                            <span class="category-name">🚀 Growth Strategy</span>
+                            <span class="score-display" id="growAvg">5.0</span>
+                        </div>
+                        <div class="category-item">
+                            <span class="category-name">🛠️ Technology Stack</span>
+                            <span class="score-display" id="techAvg">5.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations" id="recommendationsSection">
+                    <h3 style="color: #228b22; margin-bottom: 20px;">Personalized Recommendations</h3>
+                    <div id="recommendationsList">
+                        <div class="rec-card">
+                            <div class="rec-title">Complete Your Assessment</div>
+                            <div class="rec-description">Move the sliders above to receive personalized recommendations based on your business performance.</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="cta-section">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Get professional insights and actionable recommendations from DGS Consulting's expert team based on your assessment results.</p>
+            <button class="btn" onclick="generateReport()">📊 Generate Detailed Report</button>
+            <button class="btn btn-secondary" onclick="scheduleConsultation()">📞 Schedule Consultation</button>
+            <div style="margin-top: 30px;">
+                <a href="https://dgsconsulting.github.io/SOP-Designer/" class="btn btn-secondary">📝 SOP Designer</a>
+                <a href="https://dgsconsulting.github.io/ROI-Calculator-Suite/" class="btn btn-secondary">💰 ROI Calculator</a>
+            </div>
+        </div>
     </div>
-
-    <script>
-        function showTab(tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
-        }
-
-        function calculateScore() {
-            const questions = ['ops1', 'ops2', 'fin1', 'fin2', 'team1', 'team2', 'growth1', 'growth2', 'growth3', 'tech1', 'tech2', 'tech3', 'sop1', 'sop2', 'sop3'];
-            let totalScore = 0;
-            let answeredQuestions = 0;
-
-            questions.forEach(question => {
-                const selected = document.querySelector(`input[name="${question}"]:checked`);
-                if (selected) {
-                    totalScore += parseInt(selected.value);
-                    answeredQuestions++;
-                }
-            });
-
-            if (answeredQuestions === 0) {
-                alert('Please answer at least one question before calculating your score.');
-                return;
-            }
-
-            // Calculate percentage score
-            const maxPossible = answeredQuestions * 5;
-            const percentageScore = Math.round((totalScore / maxPossible) * 100);
-
-            // Show results
-            document.getElementById('totalScore').textContent = percentageScore + '%';
-            document.getElementById('scoreDisplay').style.display = 'block';
-            
-            // Determine category and recommendations
-            let category, recommendations;
-            
-            if (percentageScore >= 80) {
-                category = 'Excellent - Your business is well-optimized!';
-                recommendations = [
-                    'Focus on advanced automation and AI integration',
-                    'Consider expansion and scaling strategies',
-                    'Implement predictive analytics for decision making',
-                    'Develop leadership succession planning',
-                    'Optimize knowledge management systems',
-                    'Explore strategic partnerships for growth'
-                ];
-            } else if (percentageScore >= 60) {
-                category = 'Good - Some areas need attention';
-                recommendations = [
-                    'Implement comprehensive SOP documentation',
-                    'Automate recurring tasks and workflows',
-                    'Improve financial reporting and tracking systems',
-                    'Enhance team communication tools and processes',
-                    'Develop customer data analytics capabilities',
-                    'Upgrade technology infrastructure for scalability'
-                ];
-            } else if (percentageScore >= 40) {
-                category = 'Needs Improvement - Multiple optimization opportunities';
-                recommendations = [
-                    'Conduct comprehensive operational audit',
-                    'Establish basic process documentation and SOPs',
-                    'Implement essential financial tracking systems',
-                    'Create standardized communication protocols',
-                    'Define growth strategy and customer acquisition processes',
-                    'Assess and upgrade technology tools',
-                    'Implement data backup and security measures',
-                    'Prioritize quick wins for immediate impact'
-                ];
-            } else {
-                category = 'Critical - Immediate action required';
-                recommendations = [
-                    'Emergency operational assessment needed',
-                    'Implement basic business systems immediately',
-                    'Establish fundamental financial controls',
-                    'Create essential process documentation',
-                    'Set up basic technology infrastructure',
-                    'Implement data security and backup systems',
-                    'Develop basic SOPs for critical processes',
-                    'Consider intensive consulting support'
-                ];
-            }
-
-            document.getElementById('scoreCategory').textContent = category;
-            
-            // Populate recommendations
-            const recommendationsList = document.getElementById('recommendationsList');
-            recommendationsList.innerHTML = '';
-            recommendations.forEach(rec => {
-                const li = document.createElement('li');
-                li.textContent = '• ' + rec;
-                recommendationsList.appendChild(li);
-            });
-            
-            document.getElementById('recommendationsSection').style.display = 'block';
-            
-            // Switch to results tab
-            showTabProgrammatically('results');
-        }
-
-        function showTabProgrammatically(tabName) {
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            
-            // Remove active class from all tabs
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to corresponding tab button
-            const tabButtons = document.querySelectorAll('.tab');
-            tabButtons.forEach((tab, index) => {
-                if ((tabName === 'overview' && index === 0) ||
-                    (tabName === 'assessment' && index === 1) ||
-                    (tabName === 'results' && index === 2)) {
-                    tab.classList.add('active');
-                }
-            });
-        }
-    </script>
-    </script>
 
     <footer style="
       background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%);
       color:#fff;
       text-align:center;
       padding:20px;
-      margin-top:50px;
+      margin-top:0;
       font-size:14px;
     ">
       <p>© 2025 DGS Consulting — Streamline Today, Scale Tomorrow</p>
@@ -782,7 +663,309 @@
         <a href="https://www.instagram.com/dgsconsult/" target="_blank" style="color:#fff; text-decoration:none; margin:0 8px;">Instagram</a>
       </p>
     </footer>
+
+    <script>
+        // Initialize all sliders and scores
+        const sliders = document.querySelectorAll('.slider');
+        
+        sliders.forEach(slider => {
+            const scoreElement = document.getElementById(slider.id + '-score');
+            
+            slider.addEventListener('input', function() {
+                scoreElement.textContent = this.value;
+                updateScores();
+            });
+        });
+
+        function updateScores() {
+            const ops = (parseInt(document.getElementById('ops1').value) + parseInt(document.getElementById('ops2').value)) / 2;
+            const fin = (parseInt(document.getElementById('fin1').value) + parseInt(document.getElementById('fin2').value)) / 2;
+            const int = (parseInt(document.getElementById('int1').value) + parseInt(document.getElementById('int2').value)) / 2;
+            const grow = (parseInt(document.getElementById('grow1').value) + parseInt(document.getElementById('grow2').value)) / 2;
+            const tech = (parseInt(document.getElementById('tech1').value) + parseInt(document.getElementById('tech2').value)) / 2;
+            
+            const overall = (ops + fin + int + grow + tech) / 5;
+            
+            document.getElementById('opsAvg').textContent = ops.toFixed(1);
+            document.getElementById('finAvg').textContent = fin.toFixed(1);
+            document.getElementById('intAvg').textContent = int.toFixed(1);
+            document.getElementById('growAvg').textContent = grow.toFixed(1);
+            document.getElementById('techAvg').textContent = tech.toFixed(1);
+            document.getElementById('overallScore').textContent = Math.round(overall * 10);
+            
+            updateScoreCircle(overall);
+            updateInterpretation(overall);
+            generateRecommendations(ops, fin, int, grow, tech);
+        }
+
+        function updateScoreCircle(score) {
+            const circle = document.getElementById('overallCircle');
+            const percentage = (score / 10) * 360;
+            circle.style.background = `conic-gradient(#228b22 ${percentage}deg, #e0e6ed ${percentage}deg)`;
+        }
+
+        function updateInterpretation(score) {
+            const interpretation = document.getElementById('scoreInterpretation');
+            if (score >= 8) {
+                interpretation.textContent = "Excellent! Your business is performing at a high level across all areas.";
+                interpretation.style.color = "#228b22";
+            } else if (score >= 6) {
+                interpretation.textContent = "Good performance with room for strategic improvements.";
+                interpretation.style.color = "#f39c12";
+            } else if (score >= 4) {
+                interpretation.textContent = "Moderate performance. Several areas need attention for growth.";
+                interpretation.style.color = "#e67e22";
+            } else {
+                interpretation.textContent = "Significant improvements needed across multiple business areas.";
+                interpretation.style.color = "#e74c3c";
+            }
+        }
+
+        function generateRecommendations(ops, fin, int, grow, tech) {
+            const recommendations = [];
+            
+            if (ops < 6) {
+                recommendations.push({
+                    title: "Operations Optimization",
+                    description: "Implement process mapping and workflow automation to improve operational efficiency. Consider lean methodologies and continuous improvement practices.",
+                    priority: "high"
+                });
+            }
+            
+            if (fin < 6) {
+                recommendations.push({
+                    title: "Financial Management Enhancement",
+                    description: "Establish robust cash flow forecasting and implement real-time financial dashboards. Consider automated bookkeeping solutions.",
+                    priority: "high"
+                });
+            }
+            
+            if (int < 6) {
+                recommendations.push({
+                    title: "Internal Communication Systems",
+                    description: "Deploy collaboration tools and establish clear communication protocols. Create knowledge sharing platforms and regular team meetings.",
+                    priority: "medium"
+                });
+            }
+            
+            if (grow < 6) {
+                recommendations.push({
+                    title: "Growth Strategy Development",
+                    description: "Conduct comprehensive market analysis and develop a scaling plan. Focus on defining your competitive advantage and value proposition.",
+                    priority: "medium"
+                });
+            }
+            
+            if (tech < 6) {
+                recommendations.push({
+                    title: "Technology Stack Upgrade",
+                    description: "Audit current tools and implement automation solutions for repetitive tasks. Invest in integrated business management systems.",
+                    priority: "low"
+                });
+            }
+            
+            if (recommendations.length === 0) {
+                recommendations.push({
+                    title: "Continuous Improvement & Innovation",
+                    description: "Your business is performing well! Focus on maintaining excellence and exploring advanced optimization opportunities like AI integration and market expansion.",
+                    priority: "low"
+                });
+            }
+            
+            displayRecommendations(recommendations);
+        }
+
+        function displayRecommendations(recommendations) {
+            const container = document.getElementById('recommendationsList');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const recCard = document.createElement('div');
+                recCard.className = `rec-card priority-${rec.priority} fade-in`;
+                recCard.innerHTML = `
+                    <div class="priority-badge">${rec.priority.toUpperCase()} PRIORITY</div>
+                    <div class="rec-title">${rec.title}</div>
+                    <div class="rec-description">${rec.description}</div>
+                `;
+                container.appendChild(recCard);
+            });
+        }
+
+        function generateReport() {
+            updateScores();
+            const ops = (parseInt(document.getElementById('ops1').value) + parseInt(document.getElementById('ops2').value)) / 2;
+            const fin = (parseInt(document.getElementById('fin1').value) + parseInt(document.getElementById('fin2').value)) / 2;
+            const int = (parseInt(document.getElementById('int1').value) + parseInt(document.getElementById('int2').value)) / 2;
+            const grow = (parseInt(document.getElementById('grow1').value) + parseInt(document.getElementById('grow2').value)) / 2;
+            const tech = (parseInt(document.getElementById('tech1').value) + parseInt(document.getElementById('tech2').value)) / 2;
+            const overall = (ops + fin + int + grow + tech) / 5;
+
+            const reportHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Audit Report - DGS Consulting</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; color: #333; }
+        .header { background: linear-gradient(90deg, #9CAF88 0%, #6B8E5A 50%, #4A5D23 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 2rem; margin-bottom: 10px; }
+        .score-section { background: #f8f9fa; padding: 25px; border-radius: 10px; margin: 20px 0; text-align: center; border-left: 4px solid #228b22; }
+        .overall-score { font-size: 3rem; font-weight: bold; color: #228b22; margin: 10px 0; }
+        .category-scores { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .category { background: white; padding: 15px; border-radius: 8px; border-left: 4px solid #228b22; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .category h4 { color: #228b22; margin: 0 0 5px 0; }
+        .category .score { font-size: 1.5rem; font-weight: bold; color: #2c3e50; }
+        .recommendations { margin: 30px 0; }
+        .rec-item { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin: 15px 0; border-left: 4px solid #228b22; }
+        .rec-title { font-weight: bold; color: #228b22; margin-bottom: 8px; }
+        .priority-high { border-left-color: #e74c3c; }
+        .priority-medium { border-left-color: #f39c12; }
+        .priority-low { border-left-color: #3498db; }
+        .footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 Business Audit Report</h1>
+        <p>Comprehensive Assessment by DGS Consulting</p>
+        <p>Generated: ${new Date().toLocaleDateString()}</p>
+    </div>
+    
+    <div class="score-section">
+        <h2>Overall Business Health Score</h2>
+        <div class="overall-score">${Math.round(overall * 10)}/100</div>
+        <p>${getScoreInterpretation(overall)}</p>
+    </div>
+    
+    <h2>Category Breakdown</h2>
+    <div class="category-scores">
+        <div class="category">
+            <h4>⚡ Operations Excellence</h4>
+            <div class="score">${ops.toFixed(1)}/10</div>
+        </div>
+        <div class="category">
+            <h4>💰 Financial Health</h4>
+            <div class="score">${fin.toFixed(1)}/10</div>
+        </div>
+        <div class="category">
+            <h4>🤝 Internal Systems</h4>
+            <div class="score">${int.toFixed(1)}/10</div>
+        </div>
+        <div class="category">
+            <h4>🚀 Growth Strategy</h4>
+            <div class="score">${grow.toFixed(1)}/10</div>
+        </div>
+        <div class="category">
+            <h4>🛠️ Technology Stack</h4>
+            <div class="score">${tech.toFixed(1)}/10</div>
+        </div>
+    </div>
+    
+    <h2>Recommendations</h2>
+    <div class="recommendations">
+        ${generateReportRecommendations(ops, fin, int, grow, tech)}
+    </div>
+    
+    <div class="footer">
+        <p><strong>DGS Consulting</strong> - Streamline Today, Scale Tomorrow</p>
+        <p>Contact: DGSConsult@consultant.com | LinkedIn: dgs-consulting</p>
+    </div>
 </body>
-</html>
+</html>`;
+
+            downloadFile(reportHTML, 'Business_Audit_Report.html', 'text/html');
+        }
+
+        function getScoreInterpretation(score) {
+            if (score >= 8) return "Excellent! Your business is performing at a high level across all areas.";
+            if (score >= 6) return "Good performance with room for strategic improvements.";
+            if (score >= 4) return "Moderate performance. Several areas need attention for growth.";
+            return "Significant improvements needed across multiple business areas.";
+        }
+
+        function generateReportRecommendations(ops, fin, int, grow, tech) {
+            let html = '';
+            
+            if (ops < 6) {
+                html += `<div class="rec-item priority-high">
+                    <div class="rec-title">Operations Optimization - HIGH PRIORITY</div>
+                    <p>Implement process mapping and workflow automation to improve operational efficiency. Consider lean methodologies and continuous improvement practices.</p>
+                </div>`;
+            }
+            
+            if (fin < 6) {
+                html += `<div class="rec-item priority-high">
+                    <div class="rec-title">Financial Management Enhancement - HIGH PRIORITY</div>
+                    <p>Establish robust cash flow forecasting and implement real-time financial dashboards. Consider automated bookkeeping solutions.</p>
+                </div>`;
+            }
+            
+            if (int < 6) {
+                html += `<div class="rec-item priority-medium">
+                    <div class="rec-title">Internal Communication Systems - MEDIUM PRIORITY</div>
+                    <p>Deploy collaboration tools and establish clear communication protocols. Create knowledge sharing platforms and regular team meetings.</p>
+                </div>`;
+            }
+            
+            if (grow < 6) {
+                html += `<div class="rec-item priority-medium">
+                    <div class="rec-title">Growth Strategy Development - MEDIUM PRIORITY</div>
+                    <p>Conduct comprehensive market analysis and develop a scaling plan. Focus on defining your competitive advantage and value proposition.</p>
+                </div>`;
+            }
+            
+            if (tech < 6) {
+                html += `<div class="rec-item priority-low">
+                    <div class="rec-title">Technology Stack Upgrade - LOW PRIORITY</div>
+                    <p>Audit current tools and implement automation solutions for repetitive tasks. Invest in integrated business management systems.</p>
+                </div>`;
+            }
+            
+            if (html === '') {
+                html = `<div class="rec-item priority-low">
+                    <div class="rec-title">Continuous Improvement & Innovation</div>
+                    <p>Your business is performing well! Focus on maintaining excellence and exploring advanced optimization opportunities like AI integration and market expansion.</p>
+                </div>`;
+            }
+            
+            return html;
+        }
+
+        function scheduleConsultation() {
+            alert('📞 This would typically redirect to a consultation booking system. For now, please contact us at DGSConsult@consultant.com to schedule your consultation.');
+        }
+
+        function downloadFile(content, filename, contentType) {
+            const blob = new Blob([content], { type: contentType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize scores on page load
+        updateScores();
+
+        // Add smooth scrolling and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionGroups = document.querySelectorAll('.question-group');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            });
+
+            questionGroups.forEach(group => {
+                observer.observe(group);
+            });
+        });
+    </script>
 </body>
 </html>
