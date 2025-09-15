@@ -365,6 +365,42 @@
             margin-right: auto;
         }
 
+        /* Report Generation Styles */
+        .report-content {
+            background: white;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .report-header {
+            text-align: center;
+            border-bottom: 3px solid #228b22;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .report-section {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+
+        .report-section h3 {
+            color: #228b22;
+            border-bottom: 2px solid #e0e6ed;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; }
+            .audit-container, .features-grid, .cta-section { display: none; }
+            .report-content { display: block !important; margin: 0; }
+        }
+
         @media (max-width: 768px) {
             .audit-container {
                 grid-template-columns: 1fr;
@@ -410,6 +446,24 @@
         form button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #228b22;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(34, 139, 34, 0.3);
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -640,6 +694,54 @@
             </div>
         </div>
 
+        <!-- Hidden Report Content for Generation -->
+        <div id="reportContent" class="report-content">
+            <div class="report-header">
+                <h1>🎯 Business Audit Report</h1>
+                <h2>DGS Consulting Framework Assessment</h2>
+                <p>Generated on <span id="reportDate"></span></p>
+            </div>
+            
+            <div class="report-section">
+                <h3>Executive Summary</h3>
+                <p id="executiveSummary">Your business assessment has been completed across five critical areas.</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="display: inline-block; background: #228b22; color: white; padding: 20px; border-radius: 50%; font-size: 24px; font-weight: bold;">
+                        <span id="reportOverallScore">50</span>/100
+                    </div>
+                </div>
+            </div>
+
+            <div class="report-section">
+                <h3>Detailed Category Analysis</h3>
+                <div id="categoryAnalysis"></div>
+            </div>
+
+            <div class="report-section">
+                <h3>Priority Recommendations</h3>
+                <div id="reportRecommendations"></div>
+            </div>
+
+            <div class="report-section">
+                <h3>Next Steps</h3>
+                <ol>
+                    <li><strong>Schedule a consultation</strong> with DGS Consulting to discuss your specific needs</li>
+                    <li><strong>Prioritize high-impact areas</strong> identified in this assessment</li>
+                    <li><strong>Develop an implementation timeline</strong> for recommended improvements</li>
+                    <li><strong>Set measurable goals</strong> for each improvement area</li>
+                    <li><strong>Re-assess quarterly</strong> to track progress and adjust strategies</li>
+                </ol>
+            </div>
+
+            <div class="report-section" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #228b22;">
+                <h3>Contact DGS Consulting</h3>
+                <p><strong>Email:</strong> DGSConsult@consultant.com</p>
+                <p><strong>LinkedIn:</strong> linkedin.com/company/dgs-consutling/</p>
+                <p><strong>Instagram:</strong> @dgsconsult</p>
+                <p style="margin-top: 20px; font-style: italic;">"Streamline Today, Scale Tomorrow"</p>
+            </div>
+        </div>
+
         <div class="cta-section">
             <h2>Ready to Transform Your Business?</h2>
             <p>Get professional insights and actionable recommendations from DGS Consulting's expert team based on your assessment results.</p>
@@ -699,6 +801,16 @@
     </footer>
 
     <script>
+        // Store current scores for report generation
+        let currentScores = {
+            ops: 5,
+            fin: 5,
+            int: 5,
+            grow: 5,
+            tech: 5,
+            overall: 5
+        };
+
         // Initialize all sliders and scores
         function initializeSliders() {
             const sliders = document.querySelectorAll('.slider');
@@ -757,7 +869,8 @@
             
             const overall = (ops + fin + int + grow + tech) / 5;
             
-            console.log('Scores:', { ops, fin, int, grow, tech, overall }); // Debug log
+            // Store current scores
+            currentScores = { ops, fin, int, grow, tech, overall };
             
             // Update category averages with error checking
             const opsAvgEl = document.getElementById('opsAvg');
@@ -790,7 +903,6 @@
             if (circle) {
                 const percentage = (score / 10) * 360;
                 circle.style.background = `conic-gradient(#228b22 ${percentage}deg, #e0e6ed ${percentage}deg)`;
-                console.log('Updated circle with score:', score, 'percentage:', percentage); // Debug log
             }
         }
 
@@ -810,14 +922,11 @@
                     interpretation.textContent = "Significant improvements needed across multiple business areas.";
                     interpretation.style.color = "#e74c3c";
                 }
-                console.log('Updated interpretation for score:', score); // Debug log
             }
         }
 
         function generateRecommendations(ops, fin, int, grow, tech) {
             const recommendations = [];
-            
-            console.log('Generating recommendations for:', { ops, fin, int, grow, tech }); // Debug log
             
             if (ops < 6) {
                 recommendations.push({
@@ -867,16 +976,12 @@
                 });
             }
             
-            console.log('Generated recommendations:', recommendations); // Debug log
             displayRecommendations(recommendations);
         }
 
         function displayRecommendations(recommendations) {
             const container = document.getElementById('recommendationsList');
-            if (!container) {
-                console.error('Recommendations container not found');
-                return;
-            }
+            if (!container) return;
             
             container.innerHTML = '';
             
@@ -891,22 +996,146 @@
                 `;
                 container.appendChild(recCard);
             });
-            
-            console.log('Displayed', recommendations.length, 'recommendations'); // Debug log
         }
 
         function generateReport() {
-            updateScores();
-            alert('📊 Generating your comprehensive business audit report...\n\nThis would typically:\n• Download a detailed PDF report\n• Include specific action items\n• Provide industry benchmarks\n• Offer implementation timelines');
+            // Update report content
+            populateReportContent();
+            
+            // Show notification
+            showNotification("Generating your detailed business audit report...");
+            
+            setTimeout(() => {
+                // Create and trigger download
+                const reportHtml = document.getElementById('reportContent').innerHTML;
+                const fullReport = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Business Audit Report - DGS Consulting</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                            .report-header { text-align: center; border-bottom: 3px solid #228b22; padding-bottom: 20px; margin-bottom: 30px; }
+                            .report-section { margin-bottom: 30px; page-break-inside: avoid; }
+                            .report-section h3 { color: #228b22; border-bottom: 2px solid #e0e6ed; padding-bottom: 10px; margin-bottom: 15px; }
+                            .category-score { background: #f8f9fa; padding: 15px; margin: 10px 0; border-left: 4px solid #228b22; }
+                            .recommendation-item { background: #f8f9fa; padding: 15px; margin: 10px 0; border-left: 4px solid #e74c3c; }
+                            .priority-high { border-left-color: #e74c3c; }
+                            .priority-medium { border-left-color: #f39c12; }
+                            .priority-low { border-left-color: #3498db; }
+                            @media print { body { margin: 0; } }
+                        </style>
+                    </head>
+                    <body>
+                        ${reportHtml}
+                    </body>
+                    </html>
+                `;
+                
+                const blob = new Blob([fullReport], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Business_Audit_Report_${new Date().toISOString().split('T')[0]}.html`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification("Report generated successfully! Check your downloads folder.", true);
+            }, 2000);
         }
 
-        function scheduleConsultation() {
-            alert('📞 Redirecting to consultation booking...\n\nThis would typically:\n• Open DGS Consulting\'s calendar\n• Allow you to select available times\n• Send confirmation emails\n• Prepare customized consultation agenda');
+        function populateReportContent() {
+            const { ops, fin, int, grow, tech, overall } = currentScores;
+            
+            // Update report date
+            document.getElementById('reportDate').textContent = new Date().toLocaleDateString();
+            
+            // Update overall score
+            document.getElementById('reportOverallScore').textContent = Math.round(overall * 10);
+            
+            // Update executive summary
+            const interpretation = overall >= 8 ? "excellent performance" : 
+                                 overall >= 6 ? "good performance with room for improvement" :
+                                 overall >= 4 ? "moderate performance requiring attention" :
+                                 "significant improvements needed";
+            document.getElementById('executiveSummary').textContent = 
+                `Your business assessment reveals ${interpretation} with an overall score of ${Math.round(overall * 10)}/100.`;
+            
+            // Update category analysis
+            const categoryAnalysis = document.getElementById('categoryAnalysis');
+            categoryAnalysis.innerHTML = `
+                <div class="category-score">
+                    <h4>⚡ Operations Excellence: ${ops.toFixed(1)}/10</h4>
+                    <p>${getScoreAnalysis(ops, 'operations')}</p>
+                </div>
+                <div class="category-score">
+                    <h4>💰 Financial Health: ${fin.toFixed(1)}/10</h4>
+                    <p>${getScoreAnalysis(fin, 'financial')}</p>
+                </div>
+                <div class="category-score">
+                    <h4>🤝 Internal Systems: ${int.toFixed(1)}/10</h4>
+                    <p>${getScoreAnalysis(int, 'internal systems')}</p>
+                </div>
+                <div class="category-score">
+                    <h4>🚀 Growth Strategy: ${grow.toFixed(1)}/10</h4>
+                    <p>${getScoreAnalysis(grow, 'growth strategy')}</p>
+                </div>
+                <div class="category-score">
+                    <h4>🛠️ Technology Stack: ${tech.toFixed(1)}/10</h4>
+                    <p>${getScoreAnalysis(tech, 'technology')}</p>
+                </div>
+            `;
+            
+            // Update recommendations
+            const reportRecs = document.getElementById('reportRecommendations');
+            const recElements = document.querySelectorAll('#recommendationsList .rec-card');
+            let recHtml = '';
+            
+            recElements.forEach((rec) => {
+                const priority = rec.classList.contains('priority-high') ? 'HIGH' : 
+                               rec.classList.contains('priority-medium') ? 'MEDIUM' : 'LOW';
+                const title = rec.querySelector('.rec-title').textContent;
+                const description = rec.querySelector('.rec-description').textContent;
+                const priorityClass = priority.toLowerCase();
+                
+                recHtml += `
+                    <div class="recommendation-item priority-${priorityClass}">
+                        <h4>${priority} PRIORITY: ${title}</h4>
+                        <p>${description}</p>
+                    </div>
+                `;
+            });
+            
+            reportRecs.innerHTML = recHtml;
+        }
+
+        function getScoreAnalysis(score, area) {
+            if (score >= 8) return `Strong performance in ${area}. Continue current practices and look for optimization opportunities.`;
+            if (score >= 6) return `Good ${area} foundation with room for strategic improvements.`;
+            if (score >= 4) return `${area.charAt(0).toUpperCase() + area.slice(1)} needs attention. Focus on systematic improvements.`;
+            return `${area.charAt(0).toUpperCase() + area.slice(1)} requires immediate attention and strategic overhaul.`;
+        }
+
+        function showNotification(message, isSuccess = false) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            if (isSuccess) notification.style.background = '#27ae60';
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 3000);
         }
 
         // Initialize scores on page load
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize sliders
             initializeSliders();
             
             // Add animation delays to cards
@@ -936,3 +1165,6 @@
             // Document has already loaded
             initializeSliders();
         }
+    </script>
+</body>
+</html>
