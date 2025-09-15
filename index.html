@@ -736,20 +736,43 @@
         }
 
         function updateScores() {
-            const ops = (parseInt(document.getElementById('ops1').value) + parseInt(document.getElementById('ops2').value)) / 2;
-            const fin = (parseInt(document.getElementById('fin1').value) + parseInt(document.getElementById('fin2').value)) / 2;
-            const int = (parseInt(document.getElementById('int1').value) + parseInt(document.getElementById('int2').value)) / 2;
-            const grow = (parseInt(document.getElementById('grow1').value) + parseInt(document.getElementById('grow2').value)) / 2;
-            const tech = (parseInt(document.getElementById('tech1').value) + parseInt(document.getElementById('tech2').value)) / 2;
+            // Get all slider values with error checking
+            const ops1 = document.getElementById('ops1') ? parseInt(document.getElementById('ops1').value) : 5;
+            const ops2 = document.getElementById('ops2') ? parseInt(document.getElementById('ops2').value) : 5;
+            const fin1 = document.getElementById('fin1') ? parseInt(document.getElementById('fin1').value) : 5;
+            const fin2 = document.getElementById('fin2') ? parseInt(document.getElementById('fin2').value) : 5;
+            const int1 = document.getElementById('int1') ? parseInt(document.getElementById('int1').value) : 5;
+            const int2 = document.getElementById('int2') ? parseInt(document.getElementById('int2').value) : 5;
+            const grow1 = document.getElementById('grow1') ? parseInt(document.getElementById('grow1').value) : 5;
+            const grow2 = document.getElementById('grow2') ? parseInt(document.getElementById('grow2').value) : 5;
+            const tech1 = document.getElementById('tech1') ? parseInt(document.getElementById('tech1').value) : 5;
+            const tech2 = document.getElementById('tech2') ? parseInt(document.getElementById('tech2').value) : 5;
+            
+            // Calculate averages
+            const ops = (ops1 + ops2) / 2;
+            const fin = (fin1 + fin2) / 2;
+            const int = (int1 + int2) / 2;
+            const grow = (grow1 + grow2) / 2;
+            const tech = (tech1 + tech2) / 2;
             
             const overall = (ops + fin + int + grow + tech) / 5;
             
-            document.getElementById('opsAvg').textContent = ops.toFixed(1);
-            document.getElementById('finAvg').textContent = fin.toFixed(1);
-            document.getElementById('intAvg').textContent = int.toFixed(1);
-            document.getElementById('growAvg').textContent = grow.toFixed(1);
-            document.getElementById('techAvg').textContent = tech.toFixed(1);
-            document.getElementById('overallScore').textContent = Math.round(overall * 10);
+            console.log('Scores:', { ops, fin, int, grow, tech, overall }); // Debug log
+            
+            // Update category averages with error checking
+            const opsAvgEl = document.getElementById('opsAvg');
+            const finAvgEl = document.getElementById('finAvg');
+            const intAvgEl = document.getElementById('intAvg');
+            const growAvgEl = document.getElementById('growAvg');
+            const techAvgEl = document.getElementById('techAvg');
+            const overallScoreEl = document.getElementById('overallScore');
+            
+            if (opsAvgEl) opsAvgEl.textContent = ops.toFixed(1);
+            if (finAvgEl) finAvgEl.textContent = fin.toFixed(1);
+            if (intAvgEl) intAvgEl.textContent = int.toFixed(1);
+            if (growAvgEl) growAvgEl.textContent = grow.toFixed(1);
+            if (techAvgEl) techAvgEl.textContent = tech.toFixed(1);
+            if (overallScoreEl) overallScoreEl.textContent = Math.round(overall * 10);
             
             // Update the form score field
             const formScoreField = document.getElementById('formScore');
@@ -764,29 +787,37 @@
 
         function updateScoreCircle(score) {
             const circle = document.getElementById('overallCircle');
-            const percentage = (score / 10) * 360;
-            circle.style.background = `conic-gradient(#228b22 ${percentage}deg, #e0e6ed ${percentage}deg)`;
+            if (circle) {
+                const percentage = (score / 10) * 360;
+                circle.style.background = `conic-gradient(#228b22 ${percentage}deg, #e0e6ed ${percentage}deg)`;
+                console.log('Updated circle with score:', score, 'percentage:', percentage); // Debug log
+            }
         }
 
         function updateInterpretation(score) {
             const interpretation = document.getElementById('scoreInterpretation');
-            if (score >= 8) {
-                interpretation.textContent = "Excellent! Your business is performing at a high level across all areas.";
-                interpretation.style.color = "#228b22";
-            } else if (score >= 6) {
-                interpretation.textContent = "Good performance with room for strategic improvements.";
-                interpretation.style.color = "#f39c12";
-            } else if (score >= 4) {
-                interpretation.textContent = "Moderate performance. Several areas need attention for growth.";
-                interpretation.style.color = "#e67e22";
-            } else {
-                interpretation.textContent = "Significant improvements needed across multiple business areas.";
-                interpretation.style.color = "#e74c3c";
+            if (interpretation) {
+                if (score >= 8) {
+                    interpretation.textContent = "Excellent! Your business is performing at a high level across all areas.";
+                    interpretation.style.color = "#228b22";
+                } else if (score >= 6) {
+                    interpretation.textContent = "Good performance with room for strategic improvements.";
+                    interpretation.style.color = "#f39c12";
+                } else if (score >= 4) {
+                    interpretation.textContent = "Moderate performance. Several areas need attention for growth.";
+                    interpretation.style.color = "#e67e22";
+                } else {
+                    interpretation.textContent = "Significant improvements needed across multiple business areas.";
+                    interpretation.style.color = "#e74c3c";
+                }
+                console.log('Updated interpretation for score:', score); // Debug log
             }
         }
 
         function generateRecommendations(ops, fin, int, grow, tech) {
             const recommendations = [];
+            
+            console.log('Generating recommendations for:', { ops, fin, int, grow, tech }); // Debug log
             
             if (ops < 6) {
                 recommendations.push({
@@ -836,16 +867,23 @@
                 });
             }
             
+            console.log('Generated recommendations:', recommendations); // Debug log
             displayRecommendations(recommendations);
         }
 
         function displayRecommendations(recommendations) {
             const container = document.getElementById('recommendationsList');
+            if (!container) {
+                console.error('Recommendations container not found');
+                return;
+            }
+            
             container.innerHTML = '';
             
-            recommendations.forEach(rec => {
+            recommendations.forEach((rec, index) => {
                 const recCard = document.createElement('div');
                 recCard.className = `rec-card priority-${rec.priority} fade-in`;
+                recCard.style.animationDelay = `${index * 0.1}s`;
                 recCard.innerHTML = `
                     <div class="priority-badge">${rec.priority.toUpperCase()} PRIORITY</div>
                     <div class="rec-title">${rec.title}</div>
@@ -853,6 +891,8 @@
                 `;
                 container.appendChild(recCard);
             });
+            
+            console.log('Displayed', recommendations.length, 'recommendations'); // Debug log
         }
 
         function generateReport() {
