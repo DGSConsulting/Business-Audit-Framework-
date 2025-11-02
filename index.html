@@ -6,6 +6,15 @@
     <link rel="icon" type="image/png" href="images/logo-icon-t.png" />
     <title>Your Systems Aren't Broken — They're Bloated | DGS Consulting</title>
     <meta name="description" content="Fix your systems, not add more tools. Get a free 5-minute audit and discover what's costing you time and money.">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WE763J677E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-WE763J677E');
+    </script>
     <style>
         :root {
             --primary: #1E293B;
@@ -29,6 +38,52 @@
             color: var(--primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            background: var(--lighter);
+            border-bottom: 1px solid #E2E8F0;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .nav-logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
         }
 
         /* Hero Section */
@@ -291,9 +346,107 @@
             font-size: 1.05rem;
         }
 
+        /* Proof Section */
+        .proof-section {
+            background: var(--light);
+            padding: 70px 20px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .proof-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .proof-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .proof-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .proof-header p {
+            font-size: 1.15rem;
+            color: var(--gray);
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .proof-card {
+            background: var(--lighter);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .proof-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .proof-quote {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .proof-author {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .proof-author strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .proof-author span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .proof-result {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-block;
+        }
+
+        .proof-cta {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #E2E8F0;
+        }
+
+        .proof-cta p {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
         /* Assessment Section */
         .assessment-section {
-            background: var(--light);
+            background: var(--lighter);
             padding: 80px 20px;
         }
 
@@ -505,9 +658,16 @@
             line-height: 1.7;
         }
 
+        .recommendation .client-proof {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
         /* CTA Section */
         .cta-section {
-            background: var(--lighter);
+            background: var(--light);
             padding: 80px 20px;
             text-align: center;
         }
@@ -534,7 +694,7 @@
 
         .cta-form {
             text-align: left;
-            background: var(--light);
+            background: var(--lighter);
             padding: 40px;
             border-radius: 16px;
             border: 1px solid #E2E8F0;
@@ -577,7 +737,7 @@
         }
 
         .form-group.score-breakdown {
-            background: var(--lighter);
+            background: var(--light);
             padding: 20px;
             border-radius: 12px;
             border: 2px solid var(--accent);
@@ -732,6 +892,10 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
             .hero h1 {
                 font-size: 2rem;
             }
@@ -753,7 +917,7 @@
                 font-size: 3.2rem;
             }
 
-            .problem-grid, .benchmark-grid {
+            .problem-grid, .benchmark-grid, .proof-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -778,6 +942,21 @@
     </style>
 </head>
 <body>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-content">
+            <a href="https://dgsconsulting.solutions/" class="nav-logo">
+                <img src="images/logo-icon-t.png" alt="DGS Consulting">
+                <span>DGS Consulting</span>
+            </a>
+            <div class="nav-links">
+                <a href="https://dgsconsulting.solutions/#about">About</a>
+                <a href="https://dgsconsulting.solutions/#services">Services</a>
+                <a href="https://dgsconsulting.solutions/#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -859,6 +1038,54 @@
                     <p>You can't see what's working. Important work falls through cracks. You only find problems when clients complain.</p>
                     <span class="cost">Cost: Lost clients + firefighting stress</span>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof-section">
+        <div class="proof-content">
+            <div class="proof-header">
+                <h2>This Process Works. Here's Proof.</h2>
+                <p>Real businesses. Real results. No fluff.</p>
+            </div>
+            <div class="proof-grid">
+                <div class="proof-card">
+                    <div class="proof-quote">
+                        "We found $4,700 in savings from unused and under-used software."
+                    </div>
+                    <div class="proof-author">
+                        <strong>Marcus</strong>
+                        <span>Insurance Broker</span>
+                    </div>
+                    <div class="proof-result">💰 $4,700/year saved</div>
+                </div>
+                
+                <div class="proof-card">
+                    <div class="proof-quote">
+                        "I was able to remove 10 hours a week in general admin by automating repetitive tasks."
+                    </div>
+                    <div class="proof-author">
+                        <strong>Eugene</strong>
+                        <span>IT Services</span>
+                    </div>
+                    <div class="proof-result">⏰ 10 hours/week reclaimed</div>
+                </div>
+                
+                <div class="proof-card">
+                    <div class="proof-quote">
+                        "Darren worked with us on improving our SOPs which allowed me to expand to another truck and team."
+                    </div>
+                    <div class="proof-author">
+                        <strong>Armin</strong>
+                        <span>Janitorial Services</span>
+                    </div>
+                    <div class="proof-result">📈 Scaled 2x without chaos</div>
+                </div>
+            </div>
+            <div class="proof-cta">
+                <p><strong>Ready to see what's possible for your business?</strong></p>
+                <button class="hero-cta" onclick="scrollToAssessment()">Take the 5-Minute Assessment →</button>
             </div>
         </div>
     </section>
@@ -1000,17 +1227,17 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Company Name</label>
+                    <label>Company Name (Optional)</label>
                     <input type="text" name="company" placeholder="Your Business" aria-label="Company">
                 </div>
 
                 <div class="form-group">
-                    <label>What's Your Biggest Time Drain Right Now?</label>
+                    <label>What's Your Biggest Time Drain Right Now? (Optional)</label>
                     <textarea name="challenge" placeholder="e.g., Manually copying data between our CRM and project tool every morning..." aria-label="Business challenge"></textarea>
                 </div>
 
                 <input type="hidden" name="_subject" value="🧭 New Systems Audit - Red Flag Request">
-                <input type="hidden" name="_next" value="https://dgsconsulting.github.io/Business-Audit-Framework-/">
+                <input type="hidden" name="_next" value="https://dgsconsulting.solutions/thank-you">
                 
                 <button type="submit" class="submit-btn">Get My Action Plan →</button>
                 
@@ -1070,19 +1297,25 @@
             
             const overallScore = Math.round((total / 50) * 100);
             
-            // Update main score display
+            // Track score calculation in Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'assessment_scored', {
+                    'event_category': 'Assessment',
+                    'event_label': 'Score Calculated',
+                    'value': overallScore
+                });
+            }
+            
             const scoreDisplay = document.getElementById('overallScore');
             if (scoreDisplay) {
                 scoreDisplay.textContent = overallScore;
             }
             
-            // Update form - overall score
             const formScoreDisplay = document.getElementById('formScoreDisplay');
             if (formScoreDisplay) {
                 formScoreDisplay.textContent = overallScore + '/100';
             }
             
-            // Update form - individual scores
             const scoreQ1 = document.getElementById('scoreQ1');
             const scoreQ2 = document.getElementById('scoreQ2');
             const scoreQ3 = document.getElementById('scoreQ3');
@@ -1095,7 +1328,6 @@
             if (scoreQ4) scoreQ4.textContent = scores.q4 + '/10';
             if (scoreQ5) scoreQ5.textContent = scores.q5 + '/10';
             
-            // Update hidden fields for form submission
             const hiddenOverall = document.getElementById('scoreHiddenOverall');
             const hiddenBreakdown = document.getElementById('scoreHiddenBreakdown');
             
@@ -1114,6 +1346,15 @@
                 const results = document.getElementById('results');
                 if (results && !results.hasAttribute('data-scrolled')) {
                     results.setAttribute('data-scrolled', 'true');
+                    
+                    // Track assessment completion in Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'assessment_completed', {
+                            'event_category': 'Assessment',
+                            'event_label': 'All Questions Answered'
+                        });
+                    }
+                    
                     setTimeout(() => {
                         results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                     }, 300);
@@ -1153,6 +1394,7 @@
                     <div class="recommendation">
                         <h4>Red Flag #${count}: Process Chaos</h4>
                         <p>Your operations lack clear structure. We'll map what actually happens (not what should happen) and cut 30-40% of the waste in the first session.</p>
+                        <p class="client-proof">💡 Just like Armin (Janitorial) — improved SOPs led to scaling a second truck without chaos.</p>
                     </div>
                 `;
             }
@@ -1163,6 +1405,7 @@
                     <div class="recommendation">
                         <h4>Red Flag #${count}: Disconnected Tools</h4>
                         <p>Your systems don't talk. That means manual data entry, missed handoffs, and wasted hours. Let's connect what matters.</p>
+                        <p class="client-proof">💡 Just like Marcus (Insurance) — we found $4,700 in unused/under-used software.</p>
                     </div>
                 `;
             }
@@ -1173,6 +1416,7 @@
                     <div class="recommendation">
                         <h4>Red Flag #${count}: Manual Grind</h4>
                         <p>Repetitive work is killing your momentum. We'll automate the top 3-5 tasks in your first 30 days—most clients recover 8-12 hours/week.</p>
+                        <p class="client-proof">💡 Just like Eugene (IT Services) — removed 10 hours/week of admin through automation.</p>
                     </div>
                 `;
             }
@@ -1183,6 +1427,7 @@
                     <div class="recommendation">
                         <h4>Red Flag #${count}: No Clear Process</h4>
                         <p>Your team is guessing. Every project takes longer than it should. Let's document what works so you can scale without chaos.</p>
+                        <p class="client-proof">💡 Clear processes = predictable results. That's how our clients scale.</p>
                     </div>
                 `;
             }
@@ -1193,6 +1438,7 @@
                     <div class="recommendation">
                         <h4>Red Flag #${count}: Can't Scale</h4>
                         <p>Your current setup would break under growth. Let's identify the bottlenecks and build systems that handle 2-3X volume.</p>
+                        <p class="client-proof">💡 Like Armin who scaled to a second truck, or Eugene who freed up 10 hours/week.</p>
                     </div>
                 `;
             }
@@ -1216,6 +1462,14 @@
         function scrollToAssessment() {
             const assessmentSection = document.getElementById('assessment');
             if (assessmentSection) {
+                // Track CTA clicks in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'cta_clicked', {
+                        'event_category': 'Engagement',
+                        'event_label': 'Scroll to Assessment'
+                    });
+                }
+                
                 assessmentSection.scrollIntoView({ 
                     behavior: 'smooth',
                     block: 'start'
@@ -1226,6 +1480,16 @@
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
+                // Track form submission in Google Analytics
+                if (typeof gtag !== 'undefined') {
+                    const score = document.getElementById('scoreHiddenOverall').value;
+                    gtag('event', 'form_submitted', {
+                        'event_category': 'Lead Generation',
+                        'event_label': 'Contact Form',
+                        'value': parseInt(score)
+                    });
+                }
+                
                 setTimeout(function() {
                     const successMsg = document.getElementById('successMessage');
                     if (successMsg) {
