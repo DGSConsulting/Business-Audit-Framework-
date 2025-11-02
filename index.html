@@ -111,6 +111,92 @@
             display: inline-block;
         }
 
+        /* Benchmark Section */
+        .benchmark {
+            background: var(--lighter);
+            padding: 60px 20px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .benchmark-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .benchmark h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-weight: 800;
+        }
+
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .benchmark-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+            transition: all 0.3s ease;
+        }
+
+        .benchmark-card.highlight {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%);
+        }
+
+        .benchmark-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .benchmark-card.highlight .benchmark-label {
+            color: var(--accent);
+        }
+
+        .benchmark-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .benchmark-card.highlight .benchmark-score {
+            color: var(--accent);
+        }
+
+        .benchmark-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .benchmark-note {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(6, 182, 212, 0.05);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .benchmark-note strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
         /* Philosophy Section */
         .philosophy {
             background: var(--light);
@@ -490,10 +576,67 @@
             resize: vertical;
         }
 
-        .score-highlight {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%);
+        .form-group.score-breakdown {
+            background: var(--lighter);
+            padding: 20px;
+            border-radius: 12px;
             border: 2px solid var(--accent);
+        }
+
+        .score-breakdown label {
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+        }
+
+        .score-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .score-item:last-child {
+            border-bottom: none;
+        }
+
+        .score-item-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .score-item-value {
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
             font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .score-overall {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .score-overall-label {
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .score-overall-value {
+            background: var(--accent);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1.3rem;
         }
 
         .submit-btn {
@@ -610,7 +753,7 @@
                 font-size: 3.2rem;
             }
 
-            .problem-grid {
+            .problem-grid, .benchmark-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -640,13 +783,45 @@
         <div class="hero-content">
             <span class="hero-badge">🧭 Free 5-Minute Systems Audit</span>
             <h1>Your Systems Aren't Broken—They're Bloated</h1>
-            <p class="subheading">We help small business owners reclaim time by fixing the systems they already use. No new tools. No jargon. Just clarity.</p>
+            <p class="subheading">I help small business owners reclaim time by fixing the systems they already use. No new tools. No jargon. Just clarity.</p>
             <p class="tagline">— Darren Snook, Systems Clarity Consultant</p>
             <button class="hero-cta" onclick="scrollToAssessment()">Find What's Costing You Time →</button>
             <div class="trust-bar">
                 <span>⚡ 5 minutes</span>
                 <span>📊 Instant clarity</span>
                 <span>🎯 Actionable fixes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benchmark Section -->
+    <section class="benchmark">
+        <div class="benchmark-content">
+            <h2>Where Do Most Businesses Actually Stand?</h2>
+            <div class="benchmark-grid">
+                <div class="benchmark-card">
+                    <div class="benchmark-label">Struggling</div>
+                    <div class="benchmark-score">0-40</div>
+                    <p class="benchmark-desc">Drowning in chaos. Systems actively working against you. Every day is firefighting.</p>
+                </div>
+                <div class="benchmark-card">
+                    <div class="benchmark-label">Average Business</div>
+                    <div class="benchmark-score">41-60</div>
+                    <p class="benchmark-desc">Getting by, but leaking time and money daily. Growth feels impossible without more hours.</p>
+                </div>
+                <div class="benchmark-card highlight">
+                    <div class="benchmark-label">High Performer</div>
+                    <div class="benchmark-score">61-80</div>
+                    <p class="benchmark-desc">Solid systems. Clear processes. Can scale without breaking. This is where you want to be.</p>
+                </div>
+                <div class="benchmark-card">
+                    <div class="benchmark-label">Elite</div>
+                    <div class="benchmark-score">81-100</div>
+                    <p class="benchmark-desc">Everything runs without you. Business is a machine. You work on it, not in it.</p>
+                </div>
+            </div>
+            <div class="benchmark-note">
+                <strong>Reality check:</strong> Most small businesses score 35-55. They're functional, but inefficient. The gap between average and high performer? Usually 3-5 key fixes.
             </div>
         </div>
     </section>
@@ -788,10 +963,36 @@
             </div>
 
             <form class="cta-form" id="contactForm" action="https://formspree.io/f/mldwklqe" method="POST">
-                <div class="form-group">
+                <div class="form-group score-breakdown">
                     <label>Your Systems Health Score 📊</label>
-                    <input type="text" name="score" id="formScoreDisplay" readonly class="score-highlight" aria-label="Assessment score">
+                    <div class="score-item">
+                        <span class="score-item-label">Operational Efficiency</span>
+                        <span class="score-item-value" id="scoreQ1">5/10</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">System Integration</span>
+                        <span class="score-item-value" id="scoreQ2">5/10</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">Automation Level</span>
+                        <span class="score-item-value" id="scoreQ3">5/10</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">Process Clarity</span>
+                        <span class="score-item-value" id="scoreQ4">5/10</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-item-label">Scalability</span>
+                        <span class="score-item-value" id="scoreQ5">5/10</span>
+                    </div>
+                    <div class="score-overall">
+                        <span class="score-overall-label">Overall Score</span>
+                        <span class="score-overall-value" id="formScoreDisplay">50/100</span>
+                    </div>
                 </div>
+
+                <input type="hidden" name="score_overall" id="scoreHiddenOverall">
+                <input type="hidden" name="score_breakdown" id="scoreHiddenBreakdown">
 
                 <div class="form-group">
                     <label>Email *</label>
@@ -830,7 +1031,7 @@
             <a href="https://www.linkedin.com/company/dgs-consutling/" target="_blank">LinkedIn</a>
             <a href="https://www.instagram.com/dgsconsult/" target="_blank">Instagram</a>
         </p>
-        <p style="margin-top: 30px; font-size: 0.85rem; opacity: 0.7;">© 2025 DGS Consulting | All Rights Reserved | Founded in Ottawa, ON</p>
+        <p style="margin-top: 30px; font-size: 0.85rem; opacity: 0.7;">© 2025 DGS Consulting. All rights reserved.</p>
     </footer>
 
     <script>
@@ -869,15 +1070,41 @@
             
             const overallScore = Math.round((total / 50) * 100);
             
+            // Update main score display
             const scoreDisplay = document.getElementById('overallScore');
-            const formScoreDisplay = document.getElementById('formScoreDisplay');
-            
             if (scoreDisplay) {
                 scoreDisplay.textContent = overallScore;
             }
             
+            // Update form - overall score
+            const formScoreDisplay = document.getElementById('formScoreDisplay');
             if (formScoreDisplay) {
-                formScoreDisplay.value = overallScore + '/100';
+                formScoreDisplay.textContent = overallScore + '/100';
+            }
+            
+            // Update form - individual scores
+            const scoreQ1 = document.getElementById('scoreQ1');
+            const scoreQ2 = document.getElementById('scoreQ2');
+            const scoreQ3 = document.getElementById('scoreQ3');
+            const scoreQ4 = document.getElementById('scoreQ4');
+            const scoreQ5 = document.getElementById('scoreQ5');
+            
+            if (scoreQ1) scoreQ1.textContent = scores.q1 + '/10';
+            if (scoreQ2) scoreQ2.textContent = scores.q2 + '/10';
+            if (scoreQ3) scoreQ3.textContent = scores.q3 + '/10';
+            if (scoreQ4) scoreQ4.textContent = scores.q4 + '/10';
+            if (scoreQ5) scoreQ5.textContent = scores.q5 + '/10';
+            
+            // Update hidden fields for form submission
+            const hiddenOverall = document.getElementById('scoreHiddenOverall');
+            const hiddenBreakdown = document.getElementById('scoreHiddenBreakdown');
+            
+            if (hiddenOverall) {
+                hiddenOverall.value = overallScore + '/100';
+            }
+            
+            if (hiddenBreakdown) {
+                hiddenBreakdown.value = `Efficiency: ${scores.q1}/10 | Integration: ${scores.q2}/10 | Automation: ${scores.q3}/10 | Clarity: ${scores.q4}/10 | Scalability: ${scores.q5}/10`;
             }
             
             updateScoreLabel(overallScore);
