@@ -12,7 +12,6 @@
   --lighter: #FFFFFF;
   --success: #10B981;
   --error: #EF4444;
-  --warning: #F59E0B;
   --gray: #64748B;
 }
 
@@ -33,10 +32,9 @@ input[type=range]::-webkit-slider-thumb {
   width:26px;height:26px;border-radius:50%;background:var(--accent);cursor:pointer;
 }
 .score-circle{
-  width:160px; height:160px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:20px auto; border:3px solid rgba(6,182,212,0.2); flex-direction:column;
+  width:160px; height:160px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:20px auto; border:3px solid rgba(6,182,212,0.2);
 }
 .score-display{font-size:3rem;font-weight:900;color:var(--accent);}
-.score-benchmark{font-size:1rem;margin-top:5px;color:var(--gray);}
 label{font-weight:600; margin-bottom:5px; display:block;}
 input, textarea{width:100%;padding:12px; margin-bottom:15px; border:1px solid #E2E8F0; border-radius:8px;}
 button{background:var(--accent); color:white; padding:14px 30px; border:none; border-radius:8px; cursor:pointer;}
@@ -66,7 +64,6 @@ footer{text-align:center;padding:40px 20px;background:var(--primary);color:white
 
   <div class="score-circle">
     <div class="score-display" id="totalScoreDisplay">9</div>
-    <div class="score-benchmark" id="benchmarkLabel">Average</div>
   </div>
   <p style="text-align:center;">Total Score /18 | Average = 9 | Top Performer = 18</p>
 </section>
@@ -123,7 +120,6 @@ const visibilityScoreDisplay = document.getElementById('visibilityScoreDisplay')
 const totalScoreDisplay = document.getElementById('totalScoreDisplay');
 const totalScoreInput = document.getElementById('totalScoreInput');
 const messageField = document.getElementById('messageField');
-const benchmarkLabel = document.getElementById('benchmarkLabel');
 
 function updateScores() {
   const tool = parseInt(toolSlider.value);
@@ -142,22 +138,17 @@ function updateScores() {
   totalScoreDisplay.textContent = total;
   totalScoreInput.value = total;
 
-  // Score circle color + benchmark label
+  // Score circle color
+  const scoreCircle = document.querySelector('.score-circle');
   if(total <= 8){
+    scoreCircle.style.borderColor = '#EF4444';
     totalScoreDisplay.style.color = '#EF4444';
-    benchmarkLabel.textContent = 'Below Average';
-    benchmarkLabel.style.color = '#EF4444';
-    document.querySelector('.score-circle').style.borderColor = '#EF4444';
   } else if(total <= 13){
+    scoreCircle.style.borderColor = '#F59E0B';
     totalScoreDisplay.style.color = '#F59E0B';
-    benchmarkLabel.textContent = 'Average';
-    benchmarkLabel.style.color = '#F59E0B';
-    document.querySelector('.score-circle').style.borderColor = '#F59E0B';
   } else {
+    scoreCircle.style.borderColor = '#10B981';
     totalScoreDisplay.style.color = '#10B981';
-    benchmarkLabel.textContent = 'Top Performer';
-    benchmarkLabel.style.color = '#10B981';
-    document.querySelector('.score-circle').style.borderColor = '#10B981';
   }
 
   messageField.value = `Assessment Results:
@@ -165,7 +156,7 @@ Tool Overload: ${tool}/6
 Process Chaos: ${process}/6
 Visibility: ${visibility}/6
 Total Score: ${total}/18
-Benchmark: Below Average ≤8 | Average 9-13 | Top Performer 14-18`;
+Benchmark: Average = 9 / Top Performer = 18`;
 }
 
 toolSlider.addEventListener('input', updateScores);
